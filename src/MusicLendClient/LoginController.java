@@ -17,14 +17,19 @@ public class LoginController {
 
     @FXML
     private void login(ActionEvent event) throws Exception {
+
+        openMainWindow();
+
+        stage.close();
+    }
+
+    private void openMainWindow() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         Stage mainWindow = new Stage();
         mainWindow.setTitle("Аренда музыкальных инструментов");
         Scene scene = new Scene(root);
         mainWindow.setScene(scene);
         mainWindow.show();
-
-        stage.close();
     }
 
     @FXML
