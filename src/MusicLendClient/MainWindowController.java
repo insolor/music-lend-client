@@ -1,4 +1,4 @@
-package sample;
+package MusicLendClient;
 
 public class MainWindowController {
 

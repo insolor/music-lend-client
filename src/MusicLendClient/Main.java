@@ -1,4 +1,4 @@
-package sample;
+package MusicLendClient;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
