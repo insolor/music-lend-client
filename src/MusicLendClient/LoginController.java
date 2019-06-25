@@ -17,10 +17,18 @@ public class LoginController {
 
     @FXML
     private void login(ActionEvent event) throws Exception {
+        String webserviceURL = txtWebserviceURL.getText();
+        MainWindowController.WebserviceURL = webserviceURL;
+
+        MainWindowController.access_token = getAccessToken(webserviceURL, txtUserName.getText(), txtPassword.getText());
 
         openMainWindow();
 
         stage.close();
+    }
+
+    private String getAccessToken(String webserviceURL, String userName, String password) {
+        return "";
     }
 
     private void openMainWindow() throws Exception {
