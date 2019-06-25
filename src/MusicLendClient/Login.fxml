@@ -21,12 +21,12 @@
 
    <Label text="Имя пользователя:"/>
    <Label text="Пароль:" GridPane.rowIndex="1"/>
-   <TextField GridPane.columnIndex="1"/>
-   <TextField GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+   <TextField fx:id="txtUserName" GridPane.columnIndex="1"/>
+   <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
    <Label text="Адрес вебсервиса:" GridPane.rowIndex="2"/>
-   <TextField text="http://localhost:8080" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-   <Button fx:id="btnLogin" defaultButton="true" mnemonicParsing="false" onAction="#login" text="Войти"
+   <TextField fx:id="txtWebserviceURL" text="http://localhost:8080" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+   <Button defaultButton="true" mnemonicParsing="false" onAction="#login" text="Войти"
            GridPane.rowIndex="3"/>
-   <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#cancel" text="Отмена"
+   <Button cancelButton="true" mnemonicParsing="false" onAction="#cancel" text="Отмена"
            GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 </GridPane>
