@@ -24,7 +24,7 @@
    <TextField GridPane.columnIndex="1"/>
    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1"/>
    <Label text="Адрес вебсервиса:" GridPane.rowIndex="2"/>
-   <TextField text="localhost:8080" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+   <TextField text="http://localhost:8080" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
    <Button fx:id="btnLogin" defaultButton="true" mnemonicParsing="false" onAction="#login" text="Войти"
            GridPane.rowIndex="3"/>
    <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#cancel" text="Отмена"
