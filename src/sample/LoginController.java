@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 
 public class LoginController {
+    static Stage stage;
 
     @FXML
     private Button btnLogin, btnCancel;
@@ -23,13 +24,11 @@ public class LoginController {
         mainWindow.setScene(scene);
         mainWindow.show();
 
-        Stage stage = (Stage)btnLogin.getScene().getWindow();
         stage.close();
     }
 
     @FXML
     private void cancel(ActionEvent event) {
-        Stage stage = (Stage)btnCancel.getScene().getWindow();
         stage.close();
     }
 }

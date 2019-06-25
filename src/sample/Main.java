@@ -17,6 +17,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         stage.setTitle("Окно входа");
         stage.setScene(new Scene(root));
+        LoginController.stage = stage;
         stage.show();
     }
 }
