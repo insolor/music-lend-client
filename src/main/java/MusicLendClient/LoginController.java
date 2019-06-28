@@ -32,7 +32,7 @@ public class LoginController {
     }
 
     private void openMainWindow() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/MainWindow.fxml"));
         Stage mainWindow = new Stage();
         mainWindow.setTitle("Аренда музыкальных инструментов");
         Scene scene = new Scene(root);
