@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="MusicLendClient.MainWindowController"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+
+<TabPane tabClosingPolicy="UNAVAILABLE"
+         xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         fx:controller="MusicLendClient.MainWindowController">
+    <Tab text="Заказать инструменты">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+    </Tab>
+    <Tab text="Инструменты в пользовании">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="278.0" prefWidth="578.0" />
+    </Tab>
+    <Tab text="Администратор">
+        <AnchorPane/>
+    </Tab>
+</TabPane>
