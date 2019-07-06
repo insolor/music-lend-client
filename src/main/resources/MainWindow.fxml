@@ -2,20 +2,12 @@
 
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 
-
-<TabPane tabClosingPolicy="UNAVAILABLE"
-         xmlns="http://javafx.com/javafx"
-         xmlns:fx="http://javafx.com/fxml"
-         fx:controller="MusicLendClient.MainWindowController" fx:id="tabPane">
-    <Tab text="Заказать инструменты" fx:id="tabOrderInstruments">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-    </Tab>
-    <Tab text="Инструменты в пользовании" fx:id="tabInstrumentsInUse">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="278.0" prefWidth="578.0" />
-    </Tab>
-    <Tab text="Администратор" fx:id="tabAdmin">
-        <AnchorPane/>
-    </Tab>
+<TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicLendClient.MainWindowController">
+  <Tab fx:id="tabOrderInstruments" text="Заказать инструменты">
+  </Tab>
+  <Tab fx:id="tabInstrumentsInUse" text="Инструменты в пользовании">
+  </Tab>
+  <Tab fx:id="tabAdmin" text="Администратор">
+  </Tab>
 </TabPane>
