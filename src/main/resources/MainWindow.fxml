@@ -8,14 +8,14 @@
 <TabPane tabClosingPolicy="UNAVAILABLE"
          xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
-         fx:controller="MusicLendClient.MainWindowController">
-    <Tab text="Заказать инструменты">
+         fx:controller="MusicLendClient.MainWindowController" fx:id="tabPane">
+    <Tab text="Заказать инструменты" fx:id="tabOrderInstruments">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
     </Tab>
-    <Tab text="Инструменты в пользовании">
+    <Tab text="Инструменты в пользовании" fx:id="tabInstrumentsInUse">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="278.0" prefWidth="578.0" />
     </Tab>
-    <Tab text="Администратор">
+    <Tab text="Администратор" fx:id="tabAdmin">
         <AnchorPane/>
     </Tab>
 </TabPane>
