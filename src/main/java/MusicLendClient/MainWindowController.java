@@ -5,7 +5,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 public class MainWindowController {
-    static String WebserviceURL, access_token;
+    String WebserviceURL, access_token;
+
+    private User user;
 
     @FXML
     private TabPane tabPane;
@@ -15,14 +17,17 @@ public class MainWindowController {
 
     @FXML
     void initialize() {
-        // Hide the pane if no instruments in use
-        if(Boolean.TRUE) {
-            tabPane.getTabs().remove(tabInstrumentsInUse);
+        tabPane.getTabs().remove(tabInstrumentsInUse);
+        tabPane.getTabs().remove(tabAdmin);
+
+        user = new User();
+
+        if(user.isAdmin()) {
+            tabPane.getTabs().add(tabAdmin);
         }
 
-        // Hide the pane if the user is not admin
-        if(Boolean.TRUE) {
-            tabPane.getTabs().remove(tabAdmin);
+        if(!user.getInstrumentsInUse().isEmpty()) {
+            tabPane.getTabs().add(tabInstrumentsInUse);
         }
     }
 }
