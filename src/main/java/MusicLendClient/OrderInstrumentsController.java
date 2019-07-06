@@ -11,7 +11,7 @@ public class OrderInstrumentsController {
 
     @FXML
     void initialize() {
-        shop = new Shop();
+        shop = Main.connection.getShop();
 
         listAvailableInstruments.getItems().addAll(shop.getAvailableInstruments());
     }

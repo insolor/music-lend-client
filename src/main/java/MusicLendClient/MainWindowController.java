@@ -10,10 +10,7 @@ import javafx.scene.control.TabPane;
 import java.io.IOException;
 
 public class MainWindowController {
-    static String WebserviceURL, access_token;
-
     private User user;
-
 
     @FXML
     private TabPane tabPane;
@@ -26,7 +23,7 @@ public class MainWindowController {
         tabPane.getTabs().remove(tabInstrumentsInUse);
         tabPane.getTabs().remove(tabAdmin);
 
-        user = new User();
+        user = Main.connection.getUser();
 
         if(user.isAdmin()) {
             tabPane.getTabs().add(tabAdmin);

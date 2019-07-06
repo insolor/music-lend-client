@@ -21,4 +21,6 @@ public class Main extends Application {
         LoginController.stage = stage;
         stage.show();
     }
+
+    static Connection connection;
 }
