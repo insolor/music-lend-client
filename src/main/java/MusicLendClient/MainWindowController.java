@@ -5,7 +5,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 public class MainWindowController {
-    String WebserviceURL, access_token;
+    static String WebserviceURL, access_token;
 
     private User user;
 
