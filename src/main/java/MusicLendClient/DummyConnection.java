@@ -1,3 +1,5 @@
+// Dummy connection implementation for user interface testing
+
 package MusicLendClient;
 
 import java.math.BigDecimal;
@@ -8,13 +10,13 @@ class BadUser extends Exception { }
 
 public class DummyConnection extends Connection {
     private Shop shop;
-    private User user;
+    private DummyUser user;
 
-    private static Map<String, User> users;
+    private static Map<String, DummyUser> users;
     static {
         users = new HashMap<>();
-        users.put("admin", new User("", Boolean.TRUE));
-        users.put("user", new User("", Boolean.FALSE));
+        users.put("admin", new DummyUser("", Boolean.TRUE));
+        users.put("user", new DummyUser("", Boolean.FALSE));
     }
 
     DummyConnection(String webserviceURL, String userName, String password) throws BadUser {
