@@ -4,14 +4,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class Shop {
-    private Collection availableInstruments;
+    private Collection <Instrument> availableInstruments;
 
     Shop() {
-        availableInstruments = new LinkedList<String>();
-        availableInstruments.add("Test");
+        availableInstruments = new LinkedList<>();
     }
 
-    public Collection getAvailableInstruments() {
+    public Collection <Instrument> getAvailableInstruments() {
         return availableInstruments;
     }
 }
