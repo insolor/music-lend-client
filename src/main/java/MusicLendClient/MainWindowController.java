@@ -3,7 +3,6 @@ package MusicLendClient;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -30,7 +29,7 @@ public class MainWindowController {
         }
 
         if(!user.getInstrumentsInUse().isEmpty()) {
-            tabPane.getTabs().add(tabInstrumentsInUse);
+            tabPane.getTabs().add(1, tabInstrumentsInUse);
         }
 
         Parent tabContents = FXMLLoader.load(getClass().getResource("/OrderInstruments.fxml"));
