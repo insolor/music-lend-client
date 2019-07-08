@@ -8,16 +8,22 @@ class BadUser extends Exception { }
 
 public class DummyConnection extends Connection {
     private Shop shop;
+    private User user;
 
-    private static Map<String, String> user_pass;
+    private static Map<String, User> users;
     static {
-        user_pass = new HashMap<>();
-        user_pass.put("user", "");
-        user_pass.put("admin", "");
+        users = new HashMap<>();
+        users.put("admin", new User("", Boolean.TRUE));
+        users.put("user", new User("", Boolean.FALSE));
     }
 
     DummyConnection(String webserviceURL, String userName, String password) throws BadUser {
-        if(!user_pass.containsKey(userName) || !user_pass.get(userName).equals(password)) {
+        if(!users.containsKey(userName)) {
+            throw new BadUser();
+        }
+
+        user = users.get(userName);
+        if(!user.checkPassword(password)) {
             throw new BadUser();
         }
 
@@ -32,7 +38,5 @@ public class DummyConnection extends Connection {
     }
 
     @Override
-    public User getUser() {
-        return new User();
-    }
+    public User getUser() { return user; }
 }
