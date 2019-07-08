@@ -7,6 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 
 public class LoginController {
@@ -17,10 +20,16 @@ public class LoginController {
 
     @FXML
     private void login(ActionEvent event) throws Exception {
-        Main.connection = new DummyConnection(txtWebserviceURL.getText(), txtUserName.getText(), txtPassword.getText());
+        try {
+            Main.connection = new DummyConnection(txtWebserviceURL.getText(), txtUserName.getText(), txtPassword.getText());
+        }
+        catch (BadUser badUser) {
+            Alert alert = new Alert(AlertType.ERROR, "Неправильное имя пользователя или пароль", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
 
         openMainWindow();
-
         stage.close();
     }
 
