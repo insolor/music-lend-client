@@ -6,6 +6,7 @@ import java.util.LinkedList;
 public class User {
     private Boolean _isAdmin;
     private Collection instrumentsInUse;
+    private Collection instrumentsInCart;
 
     User() {
         _isAdmin = Boolean.FALSE;
@@ -19,4 +20,6 @@ public class User {
     public Collection getInstrumentsInUse() {
         return instrumentsInUse;
     }
+
+    public Collection getInstrumentsInCart() { return instrumentsInCart; }
 }
