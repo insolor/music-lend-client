@@ -24,8 +24,6 @@ public class OrderInstrumentsController {
         priceForDay.setCellValueFactory(new PropertyValueFactory<>("priceForDay"));
         tableAvailableInstruments.getColumns().add(priceForDay);
 
-        for (Instrument instrument: shop.getAvailableInstruments()) {
-            tableAvailableInstruments.getItems().add(instrument);
-        }
+        tableAvailableInstruments.getItems().addAll(shop.getAvailableInstruments());
     }
 }
