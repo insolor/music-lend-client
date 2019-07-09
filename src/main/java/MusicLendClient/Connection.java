@@ -5,4 +5,4 @@ public abstract class Connection {
     public abstract Shop getShop();
 }
 
-class BadUser extends Exception { }
+class BadUserException extends Exception { }

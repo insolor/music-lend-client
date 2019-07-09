@@ -17,14 +17,14 @@ public class DummyConnection extends Connection {
         users.put("user", new DummyUser("", Boolean.FALSE));
     }
 
-    DummyConnection(String webserviceURL, String userName, String password) throws BadUser {
+    DummyConnection(String webserviceURL, String userName, String password) throws BadUserException {
         if(!users.containsKey(userName)) {
-            throw new BadUser();
+            throw new BadUserException();
         }
 
         user = users.get(userName);
         if(!user.checkPassword(password)) {
-            throw new BadUser();
+            throw new BadUserException();
         }
 
         shop = new Shop();
