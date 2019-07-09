@@ -40,3 +40,14 @@ public class DummyConnection extends Connection {
     @Override
     public User getUser() { return user; }
 }
+
+class DummyUser extends User {
+    private int passwordHash;
+
+    DummyUser(String password, Boolean isAdmin) {
+        super(isAdmin);
+        this.passwordHash = password.hashCode();
+    }
+
+    public Boolean checkPassword(String password) { return password.hashCode() == passwordHash; }
+}
