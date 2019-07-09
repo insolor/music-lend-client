@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,11 +10,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.TableView?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicLendClient.OrderInstrumentsController">
     <HBox spacing="10.0">
       <GridPane>
         <Label text="Инструменты в наличии:" />
-        <ListView fx:id="listAvailableInstruments" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" />
+        <TableView fx:id="tableAvailableInstruments" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" />
         <columnConstraints>
           <ColumnConstraints />
         </columnConstraints>
