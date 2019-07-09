@@ -6,8 +6,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-class BadUser extends Exception { }
-
 public class DummyConnection extends Connection {
     private Shop shop;
     private DummyUser user;
