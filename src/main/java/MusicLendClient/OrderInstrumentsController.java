@@ -2,6 +2,7 @@ package MusicLendClient;
 
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -53,6 +55,14 @@ public class OrderInstrumentsController {
         cartWindow.setTitle("Корзина");
         cartWindow.initOwner(MainWindowController.stage);
         cartWindow.initModality(Modality.APPLICATION_MODAL);
+
+        // TODO: convert to lambda
+        cartWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                updateAvailableInstrumentsList();
+            }
+        });
 
         Scene scene = new Scene(root);
         cartWindow.setScene(scene);
