@@ -50,6 +50,17 @@ public class DummyConnection extends Connection {
         // TODO: check if the instrument not in cart yet
         user.getInstrumentsInCart().add(instrument);
     }
+
+    public void removeFromCart(Instrument instrument) throws NullPointerException {
+        if(instrument==null) {
+            throw new NullPointerException("Null instrument");
+        }
+
+        // TODO: check if the instrument not in cart
+        user.getInstrumentsInCart().remove(instrument);
+        // TODO: check if the instrument is available
+        shop.getAvailableInstruments().add(instrument);
+    }
 }
 
 class DummyUser extends User {

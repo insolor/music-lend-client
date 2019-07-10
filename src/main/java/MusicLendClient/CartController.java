@@ -42,6 +42,11 @@ public class CartController {
 
     @FXML
     private void removeFromCart(ActionEvent event) {
-
+        Instrument instrument = tableInstrumentsInCart.getSelectionModel().getSelectedItem();
+        if(instrument != null) {
+            Main.connection.removeFromCart(instrument);
+            updateInstrumentsInCart();
+            // TODO: updateAvailableInstrumentsList()
+        }
     }
 }
