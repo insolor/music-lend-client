@@ -25,5 +25,7 @@ public class User {
         return instrumentsInUse;
     }
 
-    public Collection<Instrument> getInstrumentsInCart() { return instrumentsInCart; }
+    public Collection<Instrument> getInstrumentsInCart() {
+        return instrumentsInCart;
+    }
 }
