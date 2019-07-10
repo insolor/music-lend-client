@@ -27,14 +27,7 @@ public class OrderInstrumentsController {
     @FXML
     void initialize() {
         shop = Main.connection.getShop();
-        TableColumn<Instrument, String> nameColumn = new TableColumn<>("Название");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableAvailableInstruments.getColumns().add(nameColumn);
-
-        TableColumn<Instrument, BigDecimal> priceForDay = new TableColumn<>("Цена за сутки");
-        priceForDay.setCellValueFactory(new PropertyValueFactory<>("priceForDay"));
-        tableAvailableInstruments.getColumns().add(priceForDay);
-
-        tableAvailableInstruments.getItems().addAll(shop.getAvailableInstruments());
+        initTableColumns();
+        tableAvailableInstruments.setItems(FXCollections.observableArrayList(shop.getAvailableInstruments()));
     }
 }
