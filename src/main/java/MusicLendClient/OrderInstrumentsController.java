@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -48,11 +49,14 @@ public class OrderInstrumentsController {
 
     @FXML private void showCart() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/Cart.fxml"));
-        Stage mainWindow = new Stage();
-        mainWindow.setTitle("Корзина");
+        Stage cartWindow = new Stage();
+        cartWindow.setTitle("Корзина");
+        cartWindow.initOwner(MainWindowController.stage);
+        cartWindow.initModality(Modality.APPLICATION_MODAL);
+
         Scene scene = new Scene(root);
-        mainWindow.setScene(scene);
-        mainWindow.show();
+        cartWindow.setScene(scene);
+        cartWindow.show();
     }
 
     @FXML

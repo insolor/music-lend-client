@@ -39,6 +39,7 @@ public class LoginController {
         mainWindow.setTitle("Аренда музыкальных инструментов");
         Scene scene = new Scene(root);
         mainWindow.setScene(scene);
+        MainWindowController.stage = mainWindow;
         // mainWindow.setMaximized(Boolean.TRUE);
         mainWindow.show();
     }

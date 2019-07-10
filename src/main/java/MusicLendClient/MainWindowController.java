@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class MainWindowController {
+    static Stage stage;
+
     private User user;
 
     @FXML
