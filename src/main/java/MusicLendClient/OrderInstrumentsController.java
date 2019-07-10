@@ -56,13 +56,7 @@ public class OrderInstrumentsController {
         cartWindow.initOwner(MainWindowController.stage);
         cartWindow.initModality(Modality.APPLICATION_MODAL);
 
-        // TODO: convert to lambda
-        cartWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                updateAvailableInstrumentsList();
-            }
-        });
+        cartWindow.setOnCloseRequest(event -> updateAvailableInstrumentsList());
 
         Scene scene = new Scene(root);
         cartWindow.setScene(scene);
