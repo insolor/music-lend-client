@@ -39,8 +39,11 @@ public class OrderInstrumentsController {
     }
 
     @FXML private void addToCart() {
-        Main.connection.addToCart(tableAvailableInstruments.getSelectionModel().getSelectedItem());
-        updateAvailableInstrumentsList();
+        Instrument instrument = tableAvailableInstruments.getSelectionModel().getSelectedItem();
+        if(instrument != null) {
+            Main.connection.addToCart(instrument);
+            updateAvailableInstrumentsList();
+        }
     }
 
     @FXML private void showCart() throws IOException {
