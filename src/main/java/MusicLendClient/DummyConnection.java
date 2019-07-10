@@ -41,8 +41,9 @@ public class DummyConnection extends Connection {
     public User getUser() { return user; }
 
     public void addToCart(Instrument instrument) throws NullPointerException {
-        if(instrument==null)
+        if(instrument==null) {
             throw new NullPointerException("Null instrument");
+        }
 
         // TODO: check if the instrument is available
         shop.getAvailableInstruments().remove(instrument);
