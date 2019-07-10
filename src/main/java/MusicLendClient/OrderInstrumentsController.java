@@ -1,5 +1,6 @@
 package MusicLendClient;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,6 +13,16 @@ public class OrderInstrumentsController {
 
     @FXML
     TableView<Instrument> tableAvailableInstruments;
+
+    private void initTableColumns() {
+        TableColumn<Instrument, String> nameColumn = new TableColumn<>("Название");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableAvailableInstruments.getColumns().add(nameColumn);
+
+        TableColumn<Instrument, BigDecimal> priceForDay = new TableColumn<>("Цена за сутки");
+        priceForDay.setCellValueFactory(new PropertyValueFactory<>("priceForDay"));
+        tableAvailableInstruments.getColumns().add(priceForDay);
+    }
 
     @FXML
     void initialize() {
