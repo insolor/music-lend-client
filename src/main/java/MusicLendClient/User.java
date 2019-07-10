@@ -16,6 +16,7 @@ public class User {
     User(Boolean isAdmin) {
         this._isAdmin = isAdmin;
         instrumentsInUse = new LinkedList<>();
+        instrumentsInCart = new LinkedList<>();
     }
 
     public Boolean isAdmin() { return _isAdmin; }

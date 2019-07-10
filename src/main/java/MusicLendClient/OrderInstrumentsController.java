@@ -29,14 +29,24 @@ public class OrderInstrumentsController {
         tableAvailableInstruments.getColumns().add(priceForDay);
     }
 
+    @FXML private void addToCart() {
+        Main.connection.addToCart(tableAvailableInstruments.getSelectionModel().getSelectedItem());
+        tableAvailableInstruments.setItems(FXCollections.observableArrayList(shop.getAvailableInstruments()));
+    }
+
     @FXML
     void initialize() {
         shop = Main.connection.getShop();
         initTableColumns();
         tableAvailableInstruments.setItems(FXCollections.observableArrayList(shop.getAvailableInstruments()));
 
-        ChangeListener<Object> listener = (obs, oldValue, newValue) -> {
-            textDescription.setText(((Instrument)newValue).getDescription());
+        ChangeListener<Instrument> listener = (obs, oldValue, newValue) -> {
+            if(newValue == null) {
+                textDescription.setText("");
+            }
+            else {
+                textDescription.setText(newValue.getDescription());
+            }
         };
         tableAvailableInstruments.getSelectionModel().selectedItemProperty().addListener(listener);
     }
