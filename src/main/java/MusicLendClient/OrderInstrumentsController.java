@@ -3,11 +3,16 @@ package MusicLendClient;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 public class OrderInstrumentsController {
@@ -36,6 +41,15 @@ public class OrderInstrumentsController {
     @FXML private void addToCart() {
         Main.connection.addToCart(tableAvailableInstruments.getSelectionModel().getSelectedItem());
         updateAvailableInstrumentsList();
+    }
+
+    @FXML private void showCart() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/Cart.fxml"));
+        Stage mainWindow = new Stage();
+        mainWindow.setTitle("Корзина");
+        Scene scene = new Scene(root);
+        mainWindow.setScene(scene);
+        mainWindow.show();
     }
 
     @FXML
