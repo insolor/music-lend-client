@@ -40,6 +40,7 @@ public class DummyConnection extends Connection {
     @Override
     public User getUser() { return user; }
 
+    @Override
     public void addToCart(Instrument instrument) throws NullPointerException {
         if(instrument==null) {
             throw new NullPointerException("Null instrument");
@@ -51,6 +52,7 @@ public class DummyConnection extends Connection {
         user.getInstrumentsInCart().add(instrument);
     }
 
+    @Override
     public void removeFromCart(Instrument instrument) throws NullPointerException {
         if(instrument==null) {
             throw new NullPointerException("Null instrument");
@@ -60,6 +62,11 @@ public class DummyConnection extends Connection {
         user.getInstrumentsInCart().remove(instrument);
         // TODO: check if the instrument is available
         shop.getAvailableInstruments().add(instrument);
+    }
+
+    @Override
+    public void calculateCart(Cart cart) {
+
     }
 }
 
@@ -71,5 +78,7 @@ class DummyUser extends User {
         this.passwordHash = password.hashCode();
     }
 
-    public Boolean checkPassword(String password) { return password.hashCode() == passwordHash; }
+    Boolean checkPassword(String password) {
+        return password.hashCode() == passwordHash;
+    }
 }
