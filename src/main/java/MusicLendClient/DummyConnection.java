@@ -68,6 +68,11 @@ public class DummyConnection extends Connection {
     public void calculateCart(Cart cart) {
 
     }
+
+    @Override
+    public void pay(Cart cart) {
+
+    }
 }
 
 class DummyUser extends User {
