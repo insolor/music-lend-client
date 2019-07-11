@@ -63,7 +63,12 @@
             <Label text="Промокод:"/>
             <TextField fx:id="txtPromo" GridPane.columnIndex="1"/>
             <Label text="Количество дней:" GridPane.rowIndex="1"/>
-            <Spinner fx:id="spinNumberOfDays" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Spinner fx:id="spinNumberOfDays" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="true">
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="365" initialValue="1"
+                                                                    amountToStepBy="1"/>
+                </valueFactory>
+            </Spinner>
             <GridPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </GridPane.margin>
