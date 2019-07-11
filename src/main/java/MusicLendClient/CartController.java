@@ -46,7 +46,6 @@ public class CartController {
         if(instrument != null) {
             Main.connection.removeFromCart(instrument);
             updateInstrumentsInCart();
-            // TODO: updateAvailableInstrumentsList()
         }
     }
 }
