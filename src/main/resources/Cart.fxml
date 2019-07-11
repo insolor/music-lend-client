@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicLendClient.CartController">
-    <HBox prefHeight="400.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <GridPane hgap="5.0" prefHeight="400.0" prefWidth="600.0" vgap="5.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES"/>
+            <RowConstraints vgrow="SOMETIMES"/>
+        </rowConstraints>
         <GridPane>
             <Label text="Инструменты в корзине:" />
-            <TableView fx:id="tableInstrumentsInCart" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" />
+            <TableView fx:id="tableInstrumentsInCart" GridPane.rowIndex="3"/>
             <columnConstraints>
                 <ColumnConstraints />
             </columnConstraints>
@@ -26,9 +26,9 @@
                 <RowConstraints />
             </rowConstraints>
         </GridPane>
-        <GridPane hgap="5.0" vgap="5.0">
+        <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1">
             <Label text="Описание:" />
-            <TextArea fx:id="textDescription" prefHeight="162.0" prefWidth="156.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <TextArea fx:id="textDescription" GridPane.columnSpan="2" GridPane.rowIndex="1"/>
             <Button mnemonicParsing="false" onAction="#removeFromCart" text="Удалить из корзины" GridPane.rowIndex="3" />
             <columnConstraints>
                 <ColumnConstraints />
@@ -42,8 +42,25 @@
                 <RowConstraints />
             </rowConstraints>
         </GridPane>
-        <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-        </padding>
-    </HBox>
+
+        <Button mnemonicParsing="false" text="Оплатить" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                GridPane.rowIndex="1"/>
+        <GridPane hgap="5.0" vgap="5.0" GridPane.rowIndex="1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <Label text="Промокод:"/>
+            <TextField fx:id="txtPromo" GridPane.columnIndex="1"/>
+            <Label text="Количество дней:" GridPane.rowIndex="1"/>
+            <Spinner GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <GridPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </GridPane.margin>
+        </GridPane>
+    </GridPane>
 </AnchorPane>
