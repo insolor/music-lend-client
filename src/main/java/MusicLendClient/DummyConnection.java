@@ -71,7 +71,7 @@ public class DummyConnection extends Connection {
 
     @Override
     public void pay(Cart cart) {
-
+        // TODO: Fod dummy connection just move instruments from cart to instruments in use
     }
 }
 
