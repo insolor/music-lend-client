@@ -3,6 +3,8 @@
 package MusicLendClient;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +31,7 @@ public class DummyConnection extends Connection {
 
         shop = new Shop();
         shop.getAvailableInstruments()
-                .add(new Instrument(1, "Test", "Some description", new BigDecimal("100.00")));
+                .add(new Instrument(1, "Test", "Some description", BigDecimal.valueOf(100)));
     }
 
     @Override
@@ -65,13 +67,50 @@ public class DummyConnection extends Connection {
     }
 
     @Override
-    public void calculateCart(Cart cart) {
+    public BigDecimal getPromocodePercent(String promocode) {
+        return null;
+    }
 
+    @Override
+    public void calculateCart(Cart cart) {
+        // set discount percent
+        // set discount sum
+        // set sum to pay
+        BigDecimal sum = BigDecimal.valueOf(0);
+        for (Instrument instrument: cart.getInstruments()) {
+            sum = sum.add(instrument.getPriceForDay());
+        }
+        sum = sum.multiply(new BigDecimal(cart.getDays()));
+
+        BigDecimal discountPercent = null;
+        String promocode = cart.getPromocode();
+        if(!promocode.equals("")) {
+            discountPercent = getPromocodePercent(promocode);
+        }
+
+        if(discountPercent == null) {
+            if(cart.getInstruments().size() >= 3) {
+                discountPercent = BigDecimal.valueOf(5);
+            }
+            else {
+                discountPercent = BigDecimal.valueOf(0);
+            }
+        }
+        else {
+            discountPercent = BigDecimal.valueOf(0);
+        }
+
+        cart.setDiscountPercent(discountPercent);
+        // discountSum = sum*discountPercent/100
+        cart.setDiscountSum(sum.multiply(discountPercent)
+                .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_EVEN));
+
+        cart.setSumToBePaid(sum.subtract(cart.getDiscountSum()));
     }
 
     @Override
     public void pay(Cart cart) {
-        // TODO: Fod dummy connection just move instruments from cart to instruments in use
+        // TODO: For dummy connection just move instruments from cart to instruments in use
     }
 }
 

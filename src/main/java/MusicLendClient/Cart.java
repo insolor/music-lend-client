@@ -48,4 +48,8 @@ public class Cart {
     public BigDecimal getSumToBePaid() {
         return sumToBePaid;
     }
+
+    public void setSumToBePaid(BigDecimal sumToBePaid) {
+        this.sumToBePaid = sumToBePaid;
+    }
 }
