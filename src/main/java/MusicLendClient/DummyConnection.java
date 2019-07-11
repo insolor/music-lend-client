@@ -80,7 +80,7 @@ public class DummyConnection extends Connection {
         for (Instrument instrument: cart.getInstruments()) {
             sum = sum.add(instrument.getPriceForDay());
         }
-        sum = sum.multiply(new BigDecimal(cart.getDays()));
+        sum = sum.multiply(BigDecimal.valueOf(cart.getDays()));
 
         BigDecimal discountPercent = null;
         String promocode = cart.getPromocode();
