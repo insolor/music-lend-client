@@ -16,6 +16,7 @@ public class User {
     User(Boolean isAdmin) {
         this._isAdmin = isAdmin;
         instrumentsInUse = new LinkedList<>();
+        // TODO: load cart from connection
         instrumentsInCart = new LinkedList<>();
     }
 
