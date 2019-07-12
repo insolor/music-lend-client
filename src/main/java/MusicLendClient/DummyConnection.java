@@ -71,7 +71,7 @@ public class DummyConnection extends Connection {
     }
 
     @Override
-    public void calculateCart(Cart cart) {
+    public CartCalculationResult calculateCart(Cart cart) {
         // set discount percent
         // set discount sum
         // set sum to pay
@@ -97,12 +97,13 @@ public class DummyConnection extends Connection {
             discountPercent = BigDecimal.valueOf(0);
         }
 
-        cart.setDiscountPercent(discountPercent);
         // discountSum = sum*discountPercent/100
-        cart.setDiscountSum(sum.multiply(discountPercent)
-                .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_EVEN));
+        BigDecimal discountSum = sum.multiply(discountPercent)
+                .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_EVEN);
 
-        cart.setSumToBePaid(sum.subtract(cart.getDiscountSum()));
+        BigDecimal sumToBePaid = sum.subtract(discountSum);
+
+        return new CartCalculationResult(discountPercent, discountSum, sumToBePaid);
     }
 
     @Override

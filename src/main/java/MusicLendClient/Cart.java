@@ -7,9 +7,6 @@ public class Cart {
     private Collection<Instrument> instruments;
     private String promocode;
     private Integer days;
-    private BigDecimal discountPercent;
-    private BigDecimal discountSum;
-    private BigDecimal sumToBePaid;
 
     Cart(Collection<Instrument> instruments, String promocode, Integer days) {
         this.instruments = instruments;
@@ -28,28 +25,28 @@ public class Cart {
     Integer getDays() {
         return days;
     }
+}
+
+class CartCalculationResult {
+    private BigDecimal discountPercent;
+    private BigDecimal discountSum;
+    private BigDecimal sumToBePaid;
+
+    CartCalculationResult(BigDecimal discountPercent, BigDecimal discountSum, BigDecimal sumToBePaid) {
+        this.discountPercent = discountPercent;
+        this.discountSum = discountSum;
+        this.sumToBePaid = sumToBePaid;
+    }
 
     public BigDecimal getDiscountPercent() {
         return discountPercent;
-    }
-
-    public void setDiscountPercent(BigDecimal discountPercent) {
-        this.discountPercent = discountPercent;
     }
 
     public BigDecimal getDiscountSum() {
         return discountSum;
     }
 
-    public void setDiscountSum(BigDecimal discountSum) {
-        this.discountSum = discountSum;
-    }
-
     public BigDecimal getSumToBePaid() {
         return sumToBePaid;
-    }
-
-    public void setSumToBePaid(BigDecimal sumToBePaid) {
-        this.sumToBePaid = sumToBePaid;
     }
 }
