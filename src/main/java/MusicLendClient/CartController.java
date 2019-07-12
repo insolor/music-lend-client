@@ -46,11 +46,22 @@ public class CartController {
     }
 
     @FXML
-    private void removeFromCart(ActionEvent event) {
+    void removeFromCart(ActionEvent event) {
         Instrument instrument = tableInstrumentsInCart.getSelectionModel().getSelectedItem();
         if(instrument != null) {
             Main.connection.removeFromCart(instrument);
             updateInstrumentsInCart();
+        }
+    }
+
+    @FXML
+    void pay(ActionEvent actionEvent) {
+        if(!user.getInstrumentsInCart().isEmpty()) {
+            Main.connection.pay(new Cart(user.getInstrumentsInCart(), txtPromo.getText(),
+                    (Integer) spinNumberOfDays.getValue()));
+            updateInstrumentsInCart();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
+            alert.showAndWait();
         }
     }
 }

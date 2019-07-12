@@ -49,7 +49,7 @@
             <Label text="Сумма скидки:"/>
             <Label text="К оплате:"/>
 
-            <Button mnemonicParsing="false" text="Оплатить"/>
+            <Button mnemonicParsing="false" text="Оплатить" onAction="#pay"/>
         </VBox>
         <GridPane hgap="5.0" vgap="5.0" GridPane.rowIndex="1">
             <columnConstraints>
