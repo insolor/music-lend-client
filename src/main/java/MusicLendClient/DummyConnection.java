@@ -89,7 +89,7 @@ public class DummyConnection extends Connection {
             discountPercent = getPromocodePercent(promocode);
         }
 
-        // if no valid promocode and there a there are 3 or more instruments then 5% discount
+        // if no valid promocode and there are 3 or more instruments then 5% discount
         if(discountPercent == null && cart.getInstruments().size() >= 3) {
             discountPercent = BigDecimal.valueOf(5);
         }
