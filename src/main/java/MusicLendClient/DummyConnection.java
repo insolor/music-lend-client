@@ -4,7 +4,6 @@ package MusicLendClient;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -88,17 +87,13 @@ public class DummyConnection extends Connection {
             discountPercent = getPromocodePercent(promocode);
         }
 
-        // if no valid promocode
-        if(discountPercent == null) {
-            if(cart.getInstruments().size() >= 3) {
-                // 5% discount if there are 3 or more instruments
-                discountPercent = BigDecimal.valueOf(5);
-            }
-            else {
-                discountPercent = BigDecimal.valueOf(0);
-            }
+        // if no valid promocode and there a there are 3 or more instruments then 5% discount
+        if(discountPercent == null && cart.getInstruments().size() >= 3) {
+            discountPercent = BigDecimal.valueOf(5);
         }
-        else {
+
+        // if there is still no discount set to 0
+        if(discountPercent == null) {
             discountPercent = BigDecimal.valueOf(0);
         }
 
@@ -112,7 +107,9 @@ public class DummyConnection extends Connection {
 
     @Override
     public void pay(Cart cart) {
-        // TODO: For dummy connection just move instruments from cart to instruments in use
+        // For dummy connection just move instruments from cart to instruments in use
+        user.getInstrumentsInUse().addAll(user.getInstrumentsInCart());
+        user.getInstrumentsInCart().clear();
     }
 }
 
