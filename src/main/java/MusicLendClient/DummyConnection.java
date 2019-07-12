@@ -16,6 +16,10 @@ public class DummyConnection extends Connection {
         put("user", new DummyUser("", Boolean.FALSE));
     }};
 
+    private static Map<String, BigDecimal> promocodes = new HashMap<String, BigDecimal>() {{
+        put("PROMOCODE", BigDecimal.valueOf(15));
+    }};
+
     DummyConnection(String webserviceURL, String userName, String password) throws BadUserException {
         if(!users.containsKey(userName)) {
             throw new BadUserException();
@@ -65,7 +69,7 @@ public class DummyConnection extends Connection {
 
     @Override
     public BigDecimal getPromocodePercent(String promocode) {
-        return null;
+        return promocodes.getOrDefault(promocode, null);
     }
 
     @Override

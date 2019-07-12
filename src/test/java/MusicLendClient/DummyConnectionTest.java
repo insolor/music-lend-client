@@ -19,11 +19,22 @@ public class DummyConnectionTest {
 
     @Test
     public void calculateCart() {
+        // 2 instruments - no discount
         Collection<Instrument> instruments = new LinkedList<>();
         instruments.add(new Instrument(1,"Гитара 1", "Семиструнная", BigDecimal.valueOf(100)));
         instruments.add(new Instrument(2,"Гитара 2", "Шестиструнная", BigDecimal.valueOf(200)));
-        Cart cart = new Cart(instruments, null, 1);
+        Cart cart = new Cart(instruments, "", 2);
         CartCalculationResult result = connection.calculateCart(cart);
-        assertEquals(result.getSumToBePaid(), BigDecimal.valueOf(300));
+        assertEquals(result.getSumToBePaid().intValue(), (100+200)*2);
+
+        // 5% discount for 3 or more instruments
+        instruments.add(new Instrument(3,"Гитара 3", "Шестиструнная", BigDecimal.valueOf(400)));
+        result = connection.calculateCart(cart);
+        assertEquals(result.getSumToBePaid().intValue(),  (700 - 700*5/100)*2);
+
+        // 15% discount on promocode
+        cart = new Cart(instruments, "PROMOCODE", 2);
+        result = connection.calculateCart(cart);
+        assertEquals(result.getSumToBePaid().intValue(),  (700 - 700*15/100)*2);
     }
 }
