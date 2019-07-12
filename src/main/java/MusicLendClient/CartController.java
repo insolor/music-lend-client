@@ -64,4 +64,9 @@ public class CartController {
             alert.showAndWait();
         }
     }
+
+    @FXML
+    void onCartChange(ActionEvent actionEvent) {
+        // TODO: Check promocode, calculate cart, update data in the cart window
+    }
 }
