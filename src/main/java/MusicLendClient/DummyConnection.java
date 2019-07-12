@@ -11,12 +11,10 @@ public class DummyConnection extends Connection {
     private Shop shop;
     private DummyUser user;
 
-    private static Map<String, DummyUser> users;
-    static {
-        users = new HashMap<>();
-        users.put("admin", new DummyUser("", Boolean.TRUE));
-        users.put("user", new DummyUser("", Boolean.FALSE));
-    }
+    private static Map<String, DummyUser> users  = new HashMap<String, DummyUser>() {{
+        put("admin", new DummyUser("", Boolean.TRUE));
+        put("user", new DummyUser("", Boolean.FALSE));
+    }};
 
     DummyConnection(String webserviceURL, String userName, String password) throws BadUserException {
         if(!users.containsKey(userName)) {
