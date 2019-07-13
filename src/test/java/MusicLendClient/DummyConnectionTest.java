@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -20,9 +21,11 @@ public class DummyConnectionTest {
     @Test
     public void calculateCart() {
         // 2 instruments - no discount
-        Collection<Instrument> instruments = new LinkedList<>();
-        instruments.add(new Instrument(1,"Гитара 1", "Семиструнная", BigDecimal.valueOf(100)));
-        instruments.add(new Instrument(2,"Гитара 2", "Шестиструнная", BigDecimal.valueOf(200)));
+        Collection<Instrument> instruments = new LinkedList<>(Arrays.asList(
+                new Instrument(1,"Гитара 1", "Семиструнная", BigDecimal.valueOf(100)),
+                new Instrument(2,"Гитара 2", "Шестиструнная", BigDecimal.valueOf(200))
+        ));
+
         Cart cart = new Cart(instruments, "", 2);
         CartCalculationResult result = connection.calculateCart(cart);
         assertEquals(result.getSumToBePaid().intValue(), (100+200)*2);
