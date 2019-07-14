@@ -3,30 +3,34 @@ package MusicLendClient;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class User {
+class User {
     private Boolean _isAdmin;
     private Collection<Instrument> instrumentsInUse;
     private Collection<Instrument> instrumentsInCart;
 
     User() {
-        _isAdmin = Boolean.FALSE;
-        instrumentsInUse = new LinkedList<>();
+        this(Boolean.FALSE, new LinkedList<>(), new LinkedList<>());
     }
 
     User(Boolean isAdmin) {
-        this._isAdmin = isAdmin;
-        instrumentsInUse = new LinkedList<>();
-        // TODO: load cart from connection
-        instrumentsInCart = new LinkedList<>();
+        this(isAdmin, new LinkedList<>(), new LinkedList<>());
     }
 
-    public Boolean isAdmin() { return _isAdmin; }
+    User(Boolean isAdmin, Collection<Instrument> instrumentsInUse, Collection<Instrument> instrumentsInCart) {
+        this._isAdmin = isAdmin;
+        this.instrumentsInUse = instrumentsInUse;
+        this.instrumentsInCart = instrumentsInCart;
+    }
 
-    public Collection<Instrument> getInstrumentsInUse() {
+    Boolean isAdmin() {
+        return _isAdmin;
+    }
+
+    Collection<Instrument> getInstrumentsInUse() {
         return instrumentsInUse;
     }
 
-    public Collection<Instrument> getInstrumentsInCart() {
+    Collection<Instrument> getInstrumentsInCart() {
         return instrumentsInCart;
     }
 }
