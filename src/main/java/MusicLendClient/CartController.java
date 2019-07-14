@@ -61,7 +61,7 @@ public class CartController {
     }
 
     @FXML
-    void removeFromCart(ActionEvent event) {
+    void removeFromCart() {
         Instrument instrument = tableInstrumentsInCart.getSelectionModel().getSelectedItem();
         if(instrument != null) {
             Main.connection.removeFromCart(instrument);
@@ -71,13 +71,13 @@ public class CartController {
     }
 
     @FXML
-    void pay(ActionEvent actionEvent) {
+    void pay() {
         if(!user.getInstrumentsInCart().isEmpty()) {
             Main.connection.pay(new Cart(user.getInstrumentsInCart(), txtPromo.getText(), spinNumberOfDays.getValue()));
             updateInstrumentsInCart();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
             alert.showAndWait();
-            // TODO: update "instruments in use" page of the main window
+            user.invalidate();
         }
     }
 
