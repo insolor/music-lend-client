@@ -4,82 +4,77 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicLendClient.CartController">
-    <SplitPane dividerPositions="0.5">
-        <GridPane>
-            <Label text="Инструменты в корзине:"/>
-            <TableView fx:id="tableInstrumentsInCart" GridPane.rowIndex="3"/>
+<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicLendClient.CartController">
+    <GridPane>
+        <Label text="Инструменты в корзине:" />
+        <TableView fx:id="tableInstrumentsInCart" GridPane.rowIndex="3" />
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints vgrow="ALWAYS" />
+        </rowConstraints>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </padding>
+    </GridPane>
+    <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+        <GridPane hgap="5.0" vgap="5.0">
+            <Label text="Описание:" />
+            <TextArea fx:id="textDescription" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#removeFromCart" text="Удалить из корзины" GridPane.rowIndex="3" />
             <columnConstraints>
-                <ColumnConstraints/>
+                <ColumnConstraints />
+                <ColumnConstraints hgrow="ALWAYS" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
             </rowConstraints>
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
         </GridPane>
-        <SplitPane dividerPositions="0.5" orientation="VERTICAL">
-            <GridPane hgap="5.0" vgap="5.0">
-                <Label text="Описание:"/>
-                <TextArea fx:id="textDescription" GridPane.columnSpan="2" GridPane.rowIndex="1"/>
-                <Button mnemonicParsing="false" onAction="#removeFromCart" text="Удалить из корзины"
-                        GridPane.rowIndex="3"/>
-                <columnConstraints>
-                    <ColumnConstraints/>
-                    <ColumnConstraints/>
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                </rowConstraints>
-                <padding>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                </padding>
-            </GridPane>
-            <GridPane hgap="5.0" vgap="5.0">
-                <columnConstraints>
-                    <ColumnConstraints/>
-                    <ColumnConstraints/>
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                </rowConstraints>
-                <Label text="Промокод:"/>
-                <TextField fx:id="txtPromo" GridPane.columnIndex="1"/>
-                <Label text="Количество дней:" GridPane.rowIndex="1"/>
-                <Spinner fx:id="spinNumberOfDays" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <valueFactory>
-                        <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="1" max="365"
-                                                                        min="1"/>
-                    </valueFactory>
-                </Spinner>
-                <Label text="Общая стоимость:" GridPane.rowIndex="2"/>
-                <TextField fx:id="txtSum" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <Label text="Скидка:" GridPane.rowIndex="3"/>
-                <TextField fx:id="txtDiscountPercent" editable="false" GridPane.columnIndex="1"
-                           GridPane.rowIndex="3"/>
-                <Label text="Сумма скидки:" GridPane.rowIndex="4"/>
-                <TextField fx:id="txtDiscountSum" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                <Label text="К оплате:" GridPane.rowIndex="5"/>
-                <TextField fx:id="txtSumToPay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                <Button mnemonicParsing="false" onAction="#pay" text="Оплатить" GridPane.rowIndex="6"/>
-                <padding>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                </padding>
-            </GridPane>
-        </SplitPane>
+        <GridPane hgap="5.0" vgap="5.0">
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+            <Label text="Промокод:" />
+            <TextField fx:id="txtPromo" GridPane.columnIndex="1" />
+            <Label text="Количество дней:" GridPane.rowIndex="1" />
+            <Spinner fx:id="spinNumberOfDays" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="1" max="365" min="1" />
+                </valueFactory>
+            </Spinner>
+            <Label text="Общая стоимость:" GridPane.rowIndex="2" />
+            <TextField fx:id="txtSum" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Скидка:" GridPane.rowIndex="3" />
+            <TextField fx:id="txtDiscountPercent" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Сумма скидки:" GridPane.rowIndex="4" />
+            <TextField fx:id="txtDiscountSum" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="К оплате:" GridPane.rowIndex="5" />
+            <TextField fx:id="txtSumToPay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button mnemonicParsing="false" onAction="#pay" text="Оплатить" GridPane.rowIndex="6" />
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </GridPane>
     </SplitPane>
-</AnchorPane>
+</SplitPane>
