@@ -31,16 +31,5 @@ public class MainWindowController {
 
         tabOrderInstruments.setContent(FXMLLoader.load(getClass().getResource("/OrderInstruments.fxml")));
         tabInstrumentsInUse.setContent(FXMLLoader.load(getClass().getResource("/InstrumentsInUse.fxml")));
-
-        tabPane.getSelectionModel().selectedItemProperty().addListener(
-                (observableValue, tab1, tab2) -> {
-                    if(tab2.equals(tabInstrumentsInUse)) {
-                        user.invalidate();
-                    }
-                    else if(tab2.equals(tabOrderInstruments)) {
-                        // update available instruments
-                    }
-                }
-        );
     }
 }
