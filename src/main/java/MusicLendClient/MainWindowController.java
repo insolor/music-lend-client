@@ -35,7 +35,7 @@ public class MainWindowController {
             tabPane.getTabs().add(1, tabInstrumentsInUse);
         }
 
-        Parent tabContents = FXMLLoader.load(getClass().getResource("/OrderInstruments.fxml"));
-        tabOrderInstruments.setContent(tabContents);
+        tabOrderInstruments.setContent(FXMLLoader.load(getClass().getResource("/OrderInstruments.fxml")));
+        tabInstrumentsInUse.setContent(FXMLLoader.load(getClass().getResource("/InstrumentsInUse.fxml")));
     }
 }
