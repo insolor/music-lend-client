@@ -2,14 +2,14 @@ package MusicLendClient;
 
 import java.math.BigDecimal;
 
-public abstract class Connection {
-    public abstract User getUser();
-    public abstract Shop getShop();
-    public abstract void addToCart(Instrument instrument);
-    public abstract void removeFromCart(Instrument instrument);
-    public abstract CartCalculationResult calculateCart(Cart cart);
-    public abstract BigDecimal getPromocodePercent(String promocode);
-    public abstract void pay(Cart cart);
+abstract class Connection {
+    abstract User getUser();
+    abstract Shop getShop();
+    abstract void addToCart(Instrument instrument);
+    abstract void removeFromCart(Instrument instrument);
+    abstract CartCalculationResult calculateCart(Cart cart);
+    abstract BigDecimal getPromocodePercent(String promocode);
+    abstract void pay(Cart cart);
 }
 
 class BadUserException extends Exception { }

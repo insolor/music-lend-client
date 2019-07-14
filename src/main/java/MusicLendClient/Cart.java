@@ -38,15 +38,15 @@ class CartCalculationResult {
         this.sumToBePaid = sumToBePaid;
     }
 
-    public BigDecimal getDiscountPercent() {
+    BigDecimal getDiscountPercent() {
         return discountPercent;
     }
 
-    public BigDecimal getDiscountSum() {
+    BigDecimal getDiscountSum() {
         return discountSum;
     }
 
-    public BigDecimal getSumToBePaid() {
+    BigDecimal getSumToBePaid() {
         return sumToBePaid;
     }
 }

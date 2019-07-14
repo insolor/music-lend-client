@@ -4,7 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicLendClient.CartController">
+<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="MusicLendClient.CartController">
     <GridPane>
         <Label text="Инструменты в корзине:" />
         <TableView fx:id="tableInstrumentsInCart" GridPane.rowIndex="3" />
@@ -60,7 +61,8 @@
             <Label text="Количество дней:" GridPane.rowIndex="1" />
             <Spinner fx:id="spinNumberOfDays" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <valueFactory>
-                    <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="1" max="365" min="1" />
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="1"
+                                                                    min="1" max="10000"/>
                 </valueFactory>
             </Spinner>
             <Label text="Общая стоимость:" GridPane.rowIndex="2" />

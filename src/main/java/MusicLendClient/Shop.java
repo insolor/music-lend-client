@@ -3,14 +3,14 @@ package MusicLendClient;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class Shop {
+class Shop {
     private Collection<Instrument> availableInstruments;
 
     Shop() {
         availableInstruments = new LinkedList<>();
     }
 
-    public Collection<Instrument> getAvailableInstruments() {
+    Collection<Instrument> getAvailableInstruments() {
         return availableInstruments;
     }
 }

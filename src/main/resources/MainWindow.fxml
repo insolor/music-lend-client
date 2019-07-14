@@ -3,11 +3,9 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 
-<TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicLendClient.MainWindowController">
-  <Tab fx:id="tabOrderInstruments" text="Заказать инструменты">
-  </Tab>
-  <Tab fx:id="tabInstrumentsInUse" text="Инструменты в пользовании">
-  </Tab>
-  <Tab fx:id="tabAdmin" text="Администратор">
-  </Tab>
+<TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.999-ea"
+         xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicLendClient.MainWindowController">
+  <Tab fx:id="tabOrderInstruments" text="Заказать инструменты" />
+  <Tab fx:id="tabInstrumentsInUse" text="Инструменты в пользовании" />
+  <Tab fx:id="tabAdmin" text="Администратор" />
 </TabPane>

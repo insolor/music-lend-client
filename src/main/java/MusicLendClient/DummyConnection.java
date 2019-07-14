@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DummyConnection extends Connection {
+class DummyConnection extends Connection {
     private Shop shop;
     private DummyUser user;
 
@@ -41,17 +41,17 @@ public class DummyConnection extends Connection {
     }
 
     @Override
-    public Shop getShop() {
+    Shop getShop() {
         return shop;
     }
 
     @Override
-    public User getUser() {
+    User getUser() {
         return user;
     }
 
     @Override
-    public void addToCart(Instrument instrument) throws NullPointerException {
+    void addToCart(Instrument instrument) throws NullPointerException {
         if(instrument==null) {
             throw new NullPointerException("Null instrument");
         }
@@ -63,7 +63,7 @@ public class DummyConnection extends Connection {
     }
 
     @Override
-    public void removeFromCart(Instrument instrument) throws NullPointerException {
+    void removeFromCart(Instrument instrument) throws NullPointerException {
         if(instrument==null) {
             throw new NullPointerException("Null instrument");
         }
@@ -75,7 +75,7 @@ public class DummyConnection extends Connection {
     }
 
     @Override
-    public BigDecimal getPromocodePercent(String promocode) {
+    BigDecimal getPromocodePercent(String promocode) {
         if(promocode.equals("")) {
             return BigDecimal.ZERO;
         }
@@ -85,7 +85,7 @@ public class DummyConnection extends Connection {
     }
 
     @Override
-    public CartCalculationResult calculateCart(Cart cart) {
+    CartCalculationResult calculateCart(Cart cart) {
         // set discount percent
         // set discount sum
         // set sum to pay
@@ -116,7 +116,7 @@ public class DummyConnection extends Connection {
     }
 
     @Override
-    public void pay(Cart cart) {
+    void pay(Cart cart) {
         // For dummy connection just move instruments from cart to instruments in use
         user.getInstrumentsInUse().addAll(user.getInstrumentsInCart());
         user.getInstrumentsInCart().clear();

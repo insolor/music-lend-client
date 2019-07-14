@@ -1,6 +1,5 @@
 package MusicLendClient;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +18,7 @@ public class LoginController {
     private TextField txtUserName, txtPassword, txtWebserviceURL;
 
     @FXML
-    private void login(ActionEvent event) throws Exception {
+    private void login() throws Exception {
         try {
             Main.connection = new DummyConnection(txtUserName.getText(), txtPassword.getText());
         }
@@ -45,7 +44,7 @@ public class LoginController {
     }
 
     @FXML
-    private void cancel(ActionEvent event) {
+    private void cancel() {
         stage.close();
     }
 }

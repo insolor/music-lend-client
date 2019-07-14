@@ -10,7 +10,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicLendClient.OrderInstrumentsController">
+<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="MusicLendClient.OrderInstrumentsController">
   <GridPane>
     <Label text="Инструменты в наличии:" />
     <TableView fx:id="tableAvailableInstruments" GridPane.rowIndex="3" />

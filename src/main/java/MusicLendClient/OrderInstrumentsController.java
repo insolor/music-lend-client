@@ -47,7 +47,8 @@ public class OrderInstrumentsController {
         }
     }
 
-    @FXML private void showCart() throws IOException {
+    @FXML
+    private void showCart() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/Cart.fxml"));
         Stage cartWindow = new Stage();
         cartWindow.setTitle("Корзина");
