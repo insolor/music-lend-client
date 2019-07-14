@@ -21,7 +21,7 @@ public class LoginController {
     @FXML
     private void login(ActionEvent event) throws Exception {
         try {
-            Main.connection = new DummyConnection(txtWebserviceURL.getText(), txtUserName.getText(), txtPassword.getText());
+            Main.connection = new DummyConnection(txtUserName.getText(), txtPassword.getText());
         }
         catch (BadUserException badUserException) {
             Alert alert = new Alert(AlertType.ERROR, "Неправильное имя пользователя или пароль", ButtonType.OK);

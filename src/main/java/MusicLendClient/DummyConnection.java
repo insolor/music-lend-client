@@ -4,6 +4,7 @@ package MusicLendClient;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,8 +32,12 @@ public class DummyConnection extends Connection {
         }
 
         shop = new Shop();
-        shop.getAvailableInstruments()
-                .add(new Instrument(1, "Test", "Some description", BigDecimal.valueOf(100)));
+        shop.getAvailableInstruments().addAll(Arrays.asList(
+            new Instrument(1, "Гитара аккустическая 6-струнная", "Some description", BigDecimal.valueOf(100)),
+            new Instrument(2, "Электрогитара", "Еще какое-то описание", BigDecimal.valueOf(123)),
+            new Instrument(3, "Барабанная установка", "Описание", BigDecimal.valueOf(321)),
+            new Instrument(4, "Бас-гитара", "Описание бас-гитары", BigDecimal.valueOf(444))
+        ));
     }
 
     @Override
