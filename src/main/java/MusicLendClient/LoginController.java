@@ -22,7 +22,7 @@ public class LoginController {
         try {
             Main.connection = new DummyConnection(txtUserName.getText(), txtPassword.getText());
         }
-        catch (BadUserException badUserException) {
+        catch (Connection.BadUserException badUserException) {
             Alert alert = new Alert(AlertType.ERROR, "Неправильное имя пользователя или пароль", ButtonType.OK);
             alert.showAndWait();
             return;

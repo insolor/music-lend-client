@@ -10,6 +10,7 @@ interface Connection {
     CartCalculationResult calculateCart(Cart cart);
     BigDecimal getPromocodePercent(String promocode);
     void pay(Cart cart);
+
+    class BadUserException extends Exception { }
 }
 
-class BadUserException extends Exception { }
