@@ -11,7 +11,7 @@ class User implements Observable {
     private Boolean _isAdmin;
     private Collection<Instrument> instrumentsInUse;
     private Collection<Instrument> instrumentsInCart;
-    private Collection<InvalidationListener> listeners;
+    private Collection<InvalidationListener> listeners = new HashSet<>();
 
     User() {
         this(Boolean.FALSE, new LinkedList<>(), new LinkedList<>());
@@ -25,7 +25,6 @@ class User implements Observable {
         this._isAdmin = isAdmin;
         this.instrumentsInUse = instrumentsInUse;
         this.instrumentsInCart = instrumentsInCart;
-        this.listeners = new HashSet<>();
     }
 
     Boolean isAdmin() {

@@ -18,7 +18,7 @@ public class InstrumentsInUseController {
         if(instrument != null) {
             Main.connection.returnInstrument(instrument);
             updateInstrumentsInUseList();
-            // TODO: update list of available instruments
+            Main.connection.getShop().invalidate();
         }
     }
 
@@ -26,7 +26,7 @@ public class InstrumentsInUseController {
     void returnAllInstruments() {
         Main.connection.returnAllInstruments();
         updateInstrumentsInUseList();
-        // TODO: update list of available instruments
+        Main.connection.getShop().invalidate();
     }
 
     private void initTableColumns() {
@@ -43,6 +43,6 @@ public class InstrumentsInUseController {
     void initialize() {
         initTableColumns();
         updateInstrumentsInUseList();
-        user.addListener((observable) -> updateInstrumentsInUseList());
+        user.addListener(observable -> updateInstrumentsInUseList());
     }
 }

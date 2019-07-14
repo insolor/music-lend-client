@@ -84,5 +84,6 @@ public class OrderInstrumentsController {
             }
         };
         tableAvailableInstruments.getSelectionModel().selectedItemProperty().addListener(listener);
+        shop.addListener(observable -> updateAvailableInstrumentsList());
     }
 }
