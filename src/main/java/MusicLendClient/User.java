@@ -1,12 +1,17 @@
 package MusicLendClient;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 
-class User {
+class User implements Observable {
     private Boolean _isAdmin;
     private Collection<Instrument> instrumentsInUse;
     private Collection<Instrument> instrumentsInCart;
+    private Collection<InvalidationListener> listeners;
 
     User() {
         this(Boolean.FALSE, new LinkedList<>(), new LinkedList<>());
@@ -20,6 +25,7 @@ class User {
         this._isAdmin = isAdmin;
         this.instrumentsInUse = instrumentsInUse;
         this.instrumentsInCart = instrumentsInCart;
+        this.listeners = new HashSet<>();
     }
 
     Boolean isAdmin() {
@@ -32,5 +38,21 @@ class User {
 
     Collection<Instrument> getInstrumentsInCart() {
         return instrumentsInCart;
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        listeners.remove(listener);
+    }
+
+    void invalidate() {
+        for (InvalidationListener listener: listeners) {
+            listener.invalidated(this);
+        }
     }
 }

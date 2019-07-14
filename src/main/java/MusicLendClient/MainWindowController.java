@@ -35,7 +35,7 @@ public class MainWindowController {
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, tab1, tab2) -> {
                     if(tab2.equals(tabInstrumentsInUse)) {
-                        // update instruments in use
+                        user.invalidate();
                     }
                     else if(tab2.equals(tabOrderInstruments)) {
                         // update available instruments
