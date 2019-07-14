@@ -9,11 +9,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.math.BigDecimal;
 
 public class CartController {
-
     private User user;
 
     @FXML
-    TextField txtPromo;
+    TextField txtPromo, txtSum, txtDiscountPercent, txtDiscountSum, txtSumToPay;
 
     @FXML
     Spinner spinNumberOfDays;
