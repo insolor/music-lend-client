@@ -1,7 +1,6 @@
 package MusicLendClient;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,11 +13,11 @@ public class InstrumentsInUseController {
     TableView<Instrument> tableInstrumentsInUse;
 
     @FXML
-    void returnInstrument(ActionEvent actionEvent) {
+    void returnInstrument() {
     }
 
     @FXML
-    void returnAllInstruments(ActionEvent actionEvent) {
+    void returnAllInstruments() {
     }
 
     private void initTableColumns() {
