@@ -114,6 +114,17 @@ class DummyConnection implements Connection {
         user.getInstrumentsInUse().addAll(user.getInstrumentsInCart());
         user.getInstrumentsInCart().clear();
     }
+
+    public void returnInstrument(Instrument instrument) {
+        // TODO: add validation
+        user.getInstrumentsInUse().remove(instrument);
+        shop.getAvailableInstruments().add(instrument);
+    }
+
+    public void returnAllInstruments() {
+        shop.getAvailableInstruments().addAll(user.getInstrumentsInUse());
+        user.getInstrumentsInUse().clear();
+    }
 }
 
 class DummyUser extends User {

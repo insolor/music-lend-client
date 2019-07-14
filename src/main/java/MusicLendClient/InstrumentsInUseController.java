@@ -14,10 +14,19 @@ public class InstrumentsInUseController {
 
     @FXML
     void returnInstrument() {
+        Instrument instrument = tableInstrumentsInUse.getSelectionModel().getSelectedItem();
+        if(instrument != null) {
+            Main.connection.returnInstrument(instrument);
+            updateInstrumentsInUseList();
+            // TODO: update list of available instruments
+        }
     }
 
     @FXML
     void returnAllInstruments() {
+        Main.connection.returnAllInstruments();
+        updateInstrumentsInUseList();
+        // TODO: update list of available instruments
     }
 
     private void initTableColumns() {
@@ -26,14 +35,14 @@ public class InstrumentsInUseController {
         tableInstrumentsInUse.getColumns().add(nameColumn);
     }
 
-    private void updateAvailableInstrumentsList() {
+    private void updateInstrumentsInUseList() {
         tableInstrumentsInUse.setItems(FXCollections.observableArrayList(user.getInstrumentsInUse()));
     }
 
     @FXML
     void initialize() {
         initTableColumns();
-        updateAvailableInstrumentsList();
-        user.addListener((observable) -> updateAvailableInstrumentsList());
+        updateInstrumentsInUseList();
+        user.addListener((observable) -> updateInstrumentsInUseList());
     }
 }

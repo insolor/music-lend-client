@@ -39,7 +39,8 @@ public class OrderInstrumentsController {
         tableAvailableInstruments.setItems(FXCollections.observableArrayList(shop.getAvailableInstruments()));
     }
 
-    @FXML private void addToCart() {
+    @FXML
+    private void addToCart() {
         Instrument instrument = tableAvailableInstruments.getSelectionModel().getSelectedItem();
         if(instrument != null) {
             Main.connection.addToCart(instrument);
