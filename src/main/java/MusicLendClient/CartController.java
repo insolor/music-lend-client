@@ -78,7 +78,7 @@ public class CartController {
             updateInstrumentsInCart();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
             alert.showAndWait();
-            // TODO: update "insturments in use" page of the main window
+            // TODO: update "instruments in use" page of the main window
         }
     }
 
