@@ -20,7 +20,7 @@ public class DummyConnection extends Connection {
         put("PROMOCODE", BigDecimal.valueOf(15));
     }};
 
-    DummyConnection(String webserviceURL, String userName, String password) throws BadUserException {
+    DummyConnection(String userName, String password) throws BadUserException {
         if(!users.containsKey(userName)) {
             throw new BadUserException();
         }
@@ -41,7 +41,9 @@ public class DummyConnection extends Connection {
     }
 
     @Override
-    public User getUser() { return user; }
+    public User getUser() {
+        return user;
+    }
 
     @Override
     public void addToCart(Instrument instrument) throws NullPointerException {

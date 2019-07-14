@@ -15,7 +15,7 @@ public class DummyConnectionTest {
 
     @Before
     public void setUp() throws Exception {
-        connection = new DummyConnection("", "admin", "");
+        connection = new DummyConnection("admin", "");
     }
 
     @Test
