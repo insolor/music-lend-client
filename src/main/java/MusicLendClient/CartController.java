@@ -42,6 +42,22 @@ public class CartController {
         user = Main.connection.getUser();
         initTableColumns();
         updateInstrumentsInCart();
+
+        // action when promocode text is changed
+        txtPromo.textProperty().addListener((observable, oldValue, newValue)-> {
+            BigDecimal oldPercent, newPercent;
+            oldPercent = Main.connection.getPromocodePercent(oldValue);
+            newPercent = Main.connection.getPromocodePercent(newValue);
+            if(!oldPercent.equals(newPercent)) {
+                // TODO: show promocode status somehow
+                recalcCart();
+            }
+        });
+
+        // action when number of days is changed
+        spinNumberOfDays.valueProperty().addListener((observable, oldValue, newValue)-> recalcCart());
+
+        recalcCart();
     }
 
     @FXML
@@ -50,6 +66,7 @@ public class CartController {
         if(instrument != null) {
             Main.connection.removeFromCart(instrument);
             updateInstrumentsInCart();
+            recalcCart();
         }
     }
 
@@ -65,8 +82,13 @@ public class CartController {
         }
     }
 
-    @FXML
-    void onCartChange(ActionEvent actionEvent) {
-        // TODO: Check promocode, calculate cart, update data in the cart window
+    private void recalcCart() {
+        Cart cart = new Cart(tableInstrumentsInCart.getItems(), txtPromo.getText(), (Integer)spinNumberOfDays.getValue());
+
+        CartCalculationResult result = Main.connection.calculateCart(cart);
+        txtDiscountPercent.setText(result.getDiscountPercent().toString());
+        txtDiscountSum.setText(result.getDiscountSum().toString());
+        txtSumToPay.setText(result.getSumToBePaid().toString());
+        txtSum.setText(result.getSumToBePaid().add(result.getDiscountSum()).toString());
     }
 }
