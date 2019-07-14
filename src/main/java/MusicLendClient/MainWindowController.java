@@ -2,7 +2,6 @@ package MusicLendClient;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
@@ -22,7 +21,6 @@ public class MainWindowController {
 
     @FXML
     void initialize() throws IOException {
-        tabPane.getTabs().remove(tabInstrumentsInUse);
         tabPane.getTabs().remove(tabAdmin);
 
         user = Main.connection.getUser();
@@ -31,11 +29,18 @@ public class MainWindowController {
             tabPane.getTabs().add(tabAdmin);
         }
 
-        if(!user.getInstrumentsInUse().isEmpty()) {
-            tabPane.getTabs().add(1, tabInstrumentsInUse);
-        }
-
         tabOrderInstruments.setContent(FXMLLoader.load(getClass().getResource("/OrderInstruments.fxml")));
         tabInstrumentsInUse.setContent(FXMLLoader.load(getClass().getResource("/InstrumentsInUse.fxml")));
+
+        tabPane.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue, tab1, tab2) -> {
+                    if(tab2.equals(tabInstrumentsInUse)) {
+                        // update instruments in use
+                    }
+                    else if(tab2.equals(tabOrderInstruments)) {
+                        // update available instruments
+                    }
+                }
+        );
     }
 }
