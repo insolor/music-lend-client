@@ -69,7 +69,12 @@ public class DummyConnection extends Connection {
 
     @Override
     public BigDecimal getPromocodePercent(String promocode) {
-        return promocodes.getOrDefault(promocode, null);
+        if(promocode.equals("")) {
+            return BigDecimal.ZERO;
+        }
+        else {
+            return promocodes.getOrDefault(promocode, BigDecimal.ZERO);
+        }
     }
 
     @Override
@@ -77,26 +82,21 @@ public class DummyConnection extends Connection {
         // set discount percent
         // set discount sum
         // set sum to pay
-        BigDecimal sum = BigDecimal.valueOf(0);
+        BigDecimal sum = BigDecimal.ZERO;
         for (Instrument instrument: cart.getInstruments()) {
             sum = sum.add(instrument.getPriceForDay());
         }
         sum = sum.multiply(BigDecimal.valueOf(cart.getDays()));
 
-        BigDecimal discountPercent = null;
+        BigDecimal discountPercent = BigDecimal.ZERO;
         String promocode = cart.getPromocode();
         if(!promocode.equals("")) {
             discountPercent = getPromocodePercent(promocode);
         }
 
         // if no valid promocode and there are 3 or more instruments then 5% discount
-        if(discountPercent == null && cart.getInstruments().size() >= 3) {
+        if(discountPercent.equals(BigDecimal.ZERO) && cart.getInstruments().size() >= 3) {
             discountPercent = BigDecimal.valueOf(5);
-        }
-
-        // if there is still no discount set to 0
-        if(discountPercent == null) {
-            discountPercent = BigDecimal.valueOf(0);
         }
 
         // discountSum = sum*discountPercent/100
