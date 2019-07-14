@@ -15,7 +15,7 @@ public class CartController {
     TextField txtPromo, txtSum, txtDiscountPercent, txtDiscountSum, txtSumToPay;
 
     @FXML
-    Spinner spinNumberOfDays;
+    Spinner<Integer> spinNumberOfDays;
 
     @FXML
     TableView<Instrument> tableInstrumentsInCart;
@@ -73,8 +73,7 @@ public class CartController {
     @FXML
     void pay(ActionEvent actionEvent) {
         if(!user.getInstrumentsInCart().isEmpty()) {
-            Main.connection.pay(new Cart(user.getInstrumentsInCart(), txtPromo.getText(),
-                    (Integer) spinNumberOfDays.getValue()));
+            Main.connection.pay(new Cart(user.getInstrumentsInCart(), txtPromo.getText(), spinNumberOfDays.getValue()));
             updateInstrumentsInCart();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
             alert.showAndWait();
@@ -83,7 +82,7 @@ public class CartController {
     }
 
     private void recalcCart() {
-        Cart cart = new Cart(tableInstrumentsInCart.getItems(), txtPromo.getText(), (Integer)spinNumberOfDays.getValue());
+        Cart cart = new Cart(tableInstrumentsInCart.getItems(), txtPromo.getText(), spinNumberOfDays.getValue());
 
         CartCalculationResult result = Main.connection.calculateCart(cart);
         txtDiscountPercent.setText(result.getDiscountPercent().toString());
