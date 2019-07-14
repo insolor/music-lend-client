@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-class DummyConnection extends Connection {
+class DummyConnection implements Connection {
     private Shop shop;
     private DummyUser user;
 
@@ -40,18 +40,15 @@ class DummyConnection extends Connection {
         ));
     }
 
-    @Override
-    Shop getShop() {
+    public Shop getShop() {
         return shop;
     }
 
-    @Override
-    User getUser() {
+    public User getUser() {
         return user;
     }
 
-    @Override
-    void addToCart(Instrument instrument) throws NullPointerException {
+    public void addToCart(Instrument instrument) throws NullPointerException {
         if(instrument==null) {
             throw new NullPointerException("Null instrument");
         }
@@ -62,8 +59,7 @@ class DummyConnection extends Connection {
         user.getInstrumentsInCart().add(instrument);
     }
 
-    @Override
-    void removeFromCart(Instrument instrument) throws NullPointerException {
+    public void removeFromCart(Instrument instrument) throws NullPointerException {
         if(instrument==null) {
             throw new NullPointerException("Null instrument");
         }
@@ -74,8 +70,7 @@ class DummyConnection extends Connection {
         shop.getAvailableInstruments().add(instrument);
     }
 
-    @Override
-    BigDecimal getPromocodePercent(String promocode) {
+    public BigDecimal getPromocodePercent(String promocode) {
         if(promocode.equals("")) {
             return BigDecimal.ZERO;
         }
@@ -84,8 +79,7 @@ class DummyConnection extends Connection {
         }
     }
 
-    @Override
-    CartCalculationResult calculateCart(Cart cart) {
+    public CartCalculationResult calculateCart(Cart cart) {
         // set discount percent
         // set discount sum
         // set sum to pay
@@ -115,8 +109,7 @@ class DummyConnection extends Connection {
         return new CartCalculationResult(discountPercent, discountSum, sumToBePaid);
     }
 
-    @Override
-    void pay(Cart cart) {
+    public void pay(Cart cart) {
         // For dummy connection just move instruments from cart to instruments in use
         user.getInstrumentsInUse().addAll(user.getInstrumentsInCart());
         user.getInstrumentsInCart().clear();
