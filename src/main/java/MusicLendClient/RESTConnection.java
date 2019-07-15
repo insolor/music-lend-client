@@ -75,7 +75,7 @@ public class RESTConnection implements Connection {
 
     @Override
     public void pay(Cart cart) {
-        // PUT /cart/my/
+        // PUT /cart/my/payment
     }
 
     @Override
