@@ -3,6 +3,8 @@ package MusicLendClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.BufferedReader;
@@ -20,8 +22,11 @@ public class RESTConnection implements Connection {
     RESTConnection(String webserviceUrl, String userName, String password) throws BadUserException, IOException {
         httpClient = HttpClientBuilder.create().build();
         HttpPost request = new HttpPost(webserviceUrl.concat("/auth"));
-        request.addHeader("user", userName);
-        request.addHeader("password", password);
+        request.addHeader("Content-Type", "application/json");
+        // TODO: make json from real data
+        String jsonString = "{ \"user\": \"Михаил\", \"password\": \"\" }";
+        StringEntity requestEntity = new StringEntity(jsonString, ContentType.APPLICATION_JSON);
+        request.setEntity(requestEntity);
         HttpResponse response = httpClient.execute(request);
 
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
