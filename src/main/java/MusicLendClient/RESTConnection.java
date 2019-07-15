@@ -47,7 +47,11 @@ public class RESTConnection implements Connection {
         return null;
     }
 
-    // getCart: GET /cart/my
+    @Override
+    public Cart getCart() {
+        // GET /cart/my
+        return null;
+    }
 
     @Override
     public void addToCart(Instrument instrument) {
@@ -59,7 +63,10 @@ public class RESTConnection implements Connection {
         // DELETE /cart/my & instrument=ID
     }
 
-    // removeFromCartAll: DELETE /cart/my/all
+    @Override
+    public void removeFromCartAll() {
+        // DELETE /cart/my/all
+    }
 
     @Override
     public CartCalculationResult calculateCart(Cart cart) {

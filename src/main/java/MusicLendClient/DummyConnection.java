@@ -44,6 +44,11 @@ class DummyConnection implements Connection {
         return shop;
     }
 
+    public Cart getCart() {
+        // not implemented yet
+        return null;
+    }
+
     public User getUser() {
         return user;
     }
@@ -68,6 +73,11 @@ class DummyConnection implements Connection {
         user.getInstrumentsInCart().remove(instrument);
         // TODO: check if the instrument is available
         shop.getAvailableInstruments().add(instrument);
+    }
+
+    public void removeFromCartAll() {
+        shop.getAvailableInstruments().addAll(user.getInstrumentsInCart());
+        user.getInstrumentsInCart().clear();
     }
 
     public BigDecimal getPromocodePercent(String promocode) {
