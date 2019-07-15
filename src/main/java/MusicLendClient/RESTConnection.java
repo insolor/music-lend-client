@@ -37,46 +37,54 @@ public class RESTConnection implements Connection {
 
     @Override
     public User getUser() {
+        // GET /user/me
         return null;
     }
 
     @Override
     public Shop getShop() {
+        // GET /instruments/available
         return null;
     }
 
+    // getCart: GET /cart/my
+
     @Override
     public void addToCart(Instrument instrument) {
-
+        // PUT /cart/my & instrument=ID
     }
 
     @Override
     public void removeFromCart(Instrument instrument) {
-
+        // DELETE /cart/my & instrument=ID
     }
+
+    // removeFromCartAll: DELETE /cart/my/all
 
     @Override
     public CartCalculationResult calculateCart(Cart cart) {
+        // GET /cart/my/calculation
         return null;
     }
 
     @Override
     public BigDecimal getPromocodePercent(String promocode) {
+        // GET /promocode & text=TEXT
         return null;
     }
 
     @Override
     public void pay(Cart cart) {
-
+        // PUT /cart/my/
     }
 
     @Override
     public void returnInstrument(Instrument instrument) {
-
+        // DELETE /instruments/in_use/me & instrument=ID
     }
 
     @Override
     public void returnAllInstruments() {
-
+        // DELETE /instruments/in_use/me/all
     }
 }
