@@ -71,6 +71,6 @@ public class LoginController {
     @FXML
     void initialize() {
         comboConnectionType.getItems().addAll(Arrays.asList("Тестовое подключение", "REST API"));
-        comboConnectionType.setValue("REST API");
+        comboConnectionType.setValue("Тестовое подключение");
     }
 }
