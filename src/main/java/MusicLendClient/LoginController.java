@@ -27,6 +27,7 @@ public class LoginController {
     @FXML
     private void login() throws Exception {
         Alert errorAlert = new Alert(AlertType.ERROR);
+        errorAlert.setHeaderText("Ошибка");
 
         try {
             if(comboConnectionType.getValue().equals("REST API")) {
