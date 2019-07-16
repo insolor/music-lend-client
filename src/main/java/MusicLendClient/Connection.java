@@ -16,5 +16,10 @@ interface Connection {
     void returnAllInstruments();
 
     class BadUserException extends Exception { }
+    class ConnectionErrorException extends Exception {
+        ConnectionErrorException(String message) {
+            super(message);
+        }
+    }
 }
 

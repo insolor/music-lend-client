@@ -31,7 +31,8 @@ public class RESTConnection implements Connection {
         }
     }
 
-    RESTConnection(String webserviceUrl, String userName, String password) throws BadUserException, IOException {
+    RESTConnection(String webserviceUrl, String userName, String password) throws BadUserException,
+            ConnectionErrorException, IOException {
         httpClient = HttpClientBuilder.create().build();
         HttpPost request = new HttpPost(webserviceUrl.concat("/auth"));
         request.addHeader("Content-Type", "application/json");
@@ -43,10 +44,18 @@ public class RESTConnection implements Connection {
         request.setEntity(requestEntity);
         HttpResponse response = httpClient.execute(request);
 
-        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        String content = rd.lines().collect(Collectors.joining("\n"));
-        System.out.println(content);
-        System.out.println("=================================================================================");
+        if(response.getStatusLine().getStatusCode() == 403) {
+            throw new BadUserException();
+        }
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+        if(response.getStatusLine().getStatusCode() != 200) {
+            String content = reader.lines().collect(Collectors.joining("\n"));
+            throw new ConnectionErrorException(content);
+        }
+
+        token = reader.readLine();
     }
 
     @Override
