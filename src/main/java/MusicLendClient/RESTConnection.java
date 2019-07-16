@@ -5,16 +5,20 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.util.stream.Collectors;
 
 public class RESTConnection implements Connection {
+    private String webserviceUrl;
     private HttpClient httpClient;
     private String token;
     private Shop shop;
@@ -33,6 +37,7 @@ public class RESTConnection implements Connection {
 
     RESTConnection(String webserviceUrl, String userName, String password) throws BadUserException,
             ConnectionErrorException, IOException {
+        this.webserviceUrl = webserviceUrl;
         httpClient = HttpClientBuilder.create().build();
         HttpPost request = new HttpPost(webserviceUrl.concat("/auth"));
         request.addHeader("Content-Type", "application/json");
@@ -59,9 +64,38 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public User getUser() {
+    public User getUser() throws ConnectionErrorException {
         // GET /user/me
-        return null;
+        HttpGet request;
+        try {
+            URIBuilder uriBuilder = new URIBuilder(webserviceUrl.concat("/user/me"));
+            uriBuilder.addParameter("token", token);
+            request = new HttpGet(uriBuilder.build());
+        }
+        catch (URISyntaxException ex) {
+            // TODO: Handle somehow?
+            return null;
+        }
+
+        HttpResponse response;
+        BufferedReader reader;
+
+        try {
+            response = httpClient.execute(request);
+            reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        if(response.getStatusLine().getStatusCode() != 200) {
+            String content = reader.lines().collect(Collectors.joining("\n"));
+            throw new ConnectionErrorException(content);
+        }
+
+        String content = reader.lines().collect(Collectors.joining("\n"));
+        return new Gson().fromJson(content, User.class);
     }
 
     @Override

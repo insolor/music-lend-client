@@ -3,7 +3,7 @@ package MusicLendClient;
 import java.math.BigDecimal;
 
 interface Connection {
-    User getUser();
+    User getUser() throws ConnectionErrorException;
     Shop getShop();
     Cart getCart();
     void addToCart(Instrument instrument);
