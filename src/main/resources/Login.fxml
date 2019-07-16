@@ -21,7 +21,7 @@
    </padding>
 
    <Label text="Тип подключения:" />
-   <ComboBox fx:id="comboConnectionType" prefWidth="150.0" GridPane.columnIndex="1" />
+   <ComboBox fx:id="comboConnectionType" minWidth="240.0" GridPane.columnIndex="1" />
    <Label text="Имя пользователя:" GridPane.rowIndex="1" />
    <Label text="Пароль:" GridPane.rowIndex="2" />
    <TextField fx:id="txtUserName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
