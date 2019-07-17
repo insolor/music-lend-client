@@ -7,26 +7,34 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-class User implements Observable {
+class User  {
     private Boolean _isAdmin;
-    private Collection<Instrument> instrumentsInUse;
-    private Collection<InvalidationListener> listeners = new HashSet<>();
 
     User() {
-        this(Boolean.FALSE, new LinkedList<>());
+        this(Boolean.FALSE);
     }
 
     User(Boolean isAdmin) {
-        this(isAdmin, new LinkedList<>());
-    }
-
-    User(Boolean isAdmin, Collection<Instrument> instrumentsInUse) {
         this._isAdmin = isAdmin;
-        this.instrumentsInUse = instrumentsInUse;
     }
 
     Boolean isAdmin() {
         return _isAdmin;
+    }
+}
+
+
+class LocalUser extends User implements Observable {
+    private Collection<Instrument> instrumentsInUse;
+    private Collection<InvalidationListener> listeners = new HashSet<>();
+
+    LocalUser(Boolean isAdmin) {
+        this(isAdmin, new LinkedList<>());
+    }
+
+    LocalUser(Boolean isAdmin, Collection<Instrument> instrumentsInUse) {
+        super(isAdmin);
+        this.instrumentsInUse = instrumentsInUse;
     }
 
     Collection<Instrument> getInstrumentsInUse() {
@@ -47,5 +55,13 @@ class User implements Observable {
         for (InvalidationListener listener: listeners) {
             listener.invalidated(this);
         }
+    }
+
+    User toUser() {
+        return new User(isAdmin());
+    }
+
+    static LocalUser fromUser(User user) {
+        return new LocalUser(user.isAdmin());
     }
 }

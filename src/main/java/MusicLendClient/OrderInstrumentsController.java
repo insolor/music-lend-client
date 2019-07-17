@@ -17,8 +17,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class OrderInstrumentsController {
-    private Shop shop;
-
     @FXML
     TableView<Instrument> tableAvailableInstruments;
 
@@ -36,7 +34,7 @@ public class OrderInstrumentsController {
     }
 
     private void updateAvailableInstrumentsList() {
-        tableAvailableInstruments.setItems(FXCollections.observableArrayList(shop.getAvailableInstruments()));
+        tableAvailableInstruments.setItems(FXCollections.observableArrayList(Main.shop.getAvailableInstruments()));
     }
 
     @FXML
@@ -49,7 +47,7 @@ public class OrderInstrumentsController {
     }
 
     @FXML
-    private void showCart() throws IOException, Connection.UnexpectedResultException {
+    private void showCart() throws IOException {
         // Don't show cart if it's empty
         Cart cart = Main.connection.getCart();
         if(cart.getInstruments().isEmpty()) {
@@ -71,7 +69,7 @@ public class OrderInstrumentsController {
 
     @FXML
     void initialize() {
-        shop = Main.connection.getShop();
+        Main.shop = new Shop(Main.connection.getAvailableInstruments());
         initTableColumns();
         updateAvailableInstrumentsList();
 
@@ -84,6 +82,6 @@ public class OrderInstrumentsController {
             }
         };
         tableAvailableInstruments.getSelectionModel().selectedItemProperty().addListener(listener);
-        shop.addListener(observable -> updateAvailableInstrumentsList());
+        Main.shop.addListener(observable -> updateAvailableInstrumentsList());
     }
 }

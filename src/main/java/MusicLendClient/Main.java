@@ -23,4 +23,6 @@ public class Main extends Application {
     }
 
     static Connection connection;
+    static LocalUser localUser;
+    static Shop shop;
 }

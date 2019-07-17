@@ -11,8 +11,6 @@ import java.io.IOException;
 public class MainWindowController {
     static Stage stage;
 
-    private User user;
-
     @FXML
     private TabPane tabPane;
 
@@ -23,9 +21,9 @@ public class MainWindowController {
     void initialize() throws IOException, Connection.UnexpectedResultException {
         tabPane.getTabs().remove(tabAdmin);
 
-        user = Main.connection.getUser();
+        Main.localUser = LocalUser.fromUser(Main.connection.getUser());
 
-        if(user.isAdmin()) {
+        if(Main.localUser.isAdmin()) {
             tabPane.getTabs().add(tabAdmin);
         }
 

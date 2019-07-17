@@ -11,7 +11,11 @@ class Shop implements Observable {
     private Collection<Instrument> availableInstruments;
 
     Shop() {
-        availableInstruments = new LinkedList<>();
+        this(new LinkedList<>());
+    }
+
+    Shop(Collection<Instrument> availableInstruments) {
+        this.availableInstruments = availableInstruments;
     }
 
     Collection<Instrument> getAvailableInstruments() {

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class CartController {
-    private User user;
     private Cart cart;
 
     @FXML
@@ -39,8 +38,7 @@ public class CartController {
     }
 
     @FXML
-    void initialize() throws IOException, Connection.UnexpectedResultException {
-        user = Main.connection.getUser();
+    void initialize() {
         cart = Main.connection.getCart();
 
         initTableColumns();
@@ -86,7 +84,7 @@ public class CartController {
             updateInstrumentsInCart();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
             alert.showAndWait();
-            user.invalidate();
+            Main.localUser.invalidate();
         }
     }
 

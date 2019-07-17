@@ -16,6 +16,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class RESTConnection implements Connection {
@@ -92,7 +93,7 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public Shop getShop() {
+    public Collection<Instrument> getAvailableInstruments() {
         // GET /instruments/available
         return null;
     }

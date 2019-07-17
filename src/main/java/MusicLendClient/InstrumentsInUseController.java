@@ -9,8 +9,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 
 public class InstrumentsInUseController {
-    private User user;
-
     @FXML
     TableView<Instrument> tableInstrumentsInUse;
 
@@ -20,7 +18,7 @@ public class InstrumentsInUseController {
         if(instrument != null) {
             Main.connection.returnInstrument(instrument);
             updateInstrumentsInUseList();
-            Main.connection.getShop().invalidate();
+            Main.shop.invalidate();
         }
     }
 
@@ -28,7 +26,7 @@ public class InstrumentsInUseController {
     void returnAllInstruments() {
         Main.connection.returnAllInstruments();
         updateInstrumentsInUseList();
-        Main.connection.getShop().invalidate();
+        Main.shop.invalidate();
     }
 
     private void initTableColumns() {
@@ -38,14 +36,13 @@ public class InstrumentsInUseController {
     }
 
     private void updateInstrumentsInUseList() {
-        tableInstrumentsInUse.setItems(FXCollections.observableArrayList(user.getInstrumentsInUse()));
+        tableInstrumentsInUse.setItems(FXCollections.observableArrayList(Main.localUser.getInstrumentsInUse()));
     }
 
     @FXML
-    void initialize() throws IOException, Connection.UnexpectedResultException {
-        user = Main.connection.getUser();
+    void initialize() {
         initTableColumns();
         updateInstrumentsInUseList();
-        user.addListener(observable -> updateInstrumentsInUseList());
+        Main.localUser.addListener(observable -> updateInstrumentsInUseList());
     }
 }

@@ -5,6 +5,7 @@ package MusicLendClient;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,8 +44,8 @@ class DummyConnection implements Connection {
         cart = new Cart();
     }
 
-    public Shop getShop() {
-        return shop;
+    public Collection<Instrument> getAvailableInstruments() {
+        return shop.getAvailableInstruments();
     }
 
     public Cart getCart() {
@@ -52,7 +53,7 @@ class DummyConnection implements Connection {
     }
 
     public User getUser() {
-        return user;
+        return user.toUser();
     }
 
     public void addToCart(Instrument instrument) throws NullPointerException {
@@ -139,7 +140,7 @@ class DummyConnection implements Connection {
     }
 }
 
-class DummyUser extends User {
+class DummyUser extends LocalUser {
     private int passwordHash;
 
     DummyUser(String password, Boolean isAdmin) {

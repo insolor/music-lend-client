@@ -2,10 +2,11 @@ package MusicLendClient;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collection;
 
 interface Connection {
     User getUser() throws UnexpectedResultException, IOException;
-    Shop getShop();
+    Collection<Instrument> getAvailableInstruments();
     Cart getCart();
     void addToCart(Instrument instrument);
     void removeFromCart(Instrument instrument);
@@ -28,4 +29,3 @@ interface Connection {
         }
     }
 }
-
