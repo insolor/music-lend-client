@@ -52,7 +52,7 @@ public class OrderInstrumentsController {
     private void showCart() throws IOException, Connection.UnexpectedResultException {
         // Don't show cart if it's empty
         User user = Main.connection.getUser();
-        if(user.getInstrumentsInCart().isEmpty()) {
+        if(user.getCart().getInstruments().isEmpty()) {
             return;
         }
 

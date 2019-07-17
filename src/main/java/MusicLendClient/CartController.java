@@ -34,7 +34,7 @@ public class CartController {
     }
 
     private void updateInstrumentsInCart() {
-        tableInstrumentsInCart.setItems(FXCollections.observableArrayList(user.getInstrumentsInCart()));
+        tableInstrumentsInCart.setItems(FXCollections.observableArrayList(user.getCart().getInstruments()));
     }
 
     @FXML
@@ -72,8 +72,8 @@ public class CartController {
 
     @FXML
     void pay() {
-        if(!user.getInstrumentsInCart().isEmpty()) {
-            Main.connection.pay(new Cart(user.getInstrumentsInCart(), txtPromo.getText(), spinNumberOfDays.getValue()));
+        if(!user.getCart().getInstruments().isEmpty()) {
+            Main.connection.pay(new Cart(user.getCart().getInstruments(), txtPromo.getText(), spinNumberOfDays.getValue()));
             updateInstrumentsInCart();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
             alert.showAndWait();

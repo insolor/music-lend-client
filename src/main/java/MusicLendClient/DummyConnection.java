@@ -61,7 +61,7 @@ class DummyConnection implements Connection {
         // TODO: check if the instrument is available
         shop.getAvailableInstruments().remove(instrument);
         // TODO: check if the instrument not in cart yet
-        user.getInstrumentsInCart().add(instrument);
+        user.getCart().getInstruments().add(instrument);
     }
 
     public void removeFromCart(Instrument instrument) throws NullPointerException {
@@ -70,14 +70,14 @@ class DummyConnection implements Connection {
         }
 
         // TODO: check if the instrument not in cart
-        user.getInstrumentsInCart().remove(instrument);
+        user.getCart().getInstruments().remove(instrument);
         // TODO: check if the instrument is available
         shop.getAvailableInstruments().add(instrument);
     }
 
     public void removeFromCartAll() {
-        shop.getAvailableInstruments().addAll(user.getInstrumentsInCart());
-        user.getInstrumentsInCart().clear();
+        shop.getAvailableInstruments().addAll(user.getCart().getInstruments());
+        user.getCart().getInstruments().clear();
     }
 
     public BigDecimal getPromocodePercent(String promocode) {
@@ -121,8 +121,8 @@ class DummyConnection implements Connection {
 
     public void pay(Cart cart) {
         // For dummy connection just move instruments from cart to instruments in use
-        user.getInstrumentsInUse().addAll(user.getInstrumentsInCart());
-        user.getInstrumentsInCart().clear();
+        user.getInstrumentsInUse().addAll(user.getCart().getInstruments());
+        user.getCart().getInstruments().clear();
     }
 
     public void returnInstrument(Instrument instrument) {

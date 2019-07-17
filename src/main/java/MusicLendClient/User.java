@@ -10,21 +10,21 @@ import java.util.LinkedList;
 class User implements Observable {
     private Boolean _isAdmin;
     private Collection<Instrument> instrumentsInUse;
-    private Collection<Instrument> instrumentsInCart;
     private Collection<InvalidationListener> listeners = new HashSet<>();
+    private Cart cart;
 
     User() {
-        this(Boolean.FALSE, new LinkedList<>(), new LinkedList<>());
+        this(Boolean.FALSE, new LinkedList<>(), new Cart());
     }
 
     User(Boolean isAdmin) {
-        this(isAdmin, new LinkedList<>(), new LinkedList<>());
+        this(isAdmin, new LinkedList<>(), new Cart());
     }
 
-    User(Boolean isAdmin, Collection<Instrument> instrumentsInUse, Collection<Instrument> instrumentsInCart) {
+    User(Boolean isAdmin, Collection<Instrument> instrumentsInUse, Cart cart) {
         this._isAdmin = isAdmin;
         this.instrumentsInUse = instrumentsInUse;
-        this.instrumentsInCart = instrumentsInCart;
+        this.cart = cart;
     }
 
     Boolean isAdmin() {
@@ -35,8 +35,8 @@ class User implements Observable {
         return instrumentsInUse;
     }
 
-    Collection<Instrument> getInstrumentsInCart() {
-        return instrumentsInCart;
+    Cart getCart() {
+        return cart;
     }
 
     @Override

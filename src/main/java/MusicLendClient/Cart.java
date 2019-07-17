@@ -2,11 +2,16 @@ package MusicLendClient;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class Cart {
     private Collection<Instrument> instruments;
     private String promocode;
     private Integer days;
+
+    Cart() {
+        this(new LinkedList<>(), "", 1);
+    }
 
     Cart(Collection<Instrument> instruments, String promocode, Integer days) {
         this.instruments = instruments;
