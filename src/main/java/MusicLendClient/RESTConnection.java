@@ -14,6 +14,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.stream.Collectors;
 
@@ -66,22 +67,24 @@ public class RESTConnection implements Connection {
     @Override
     public User getUser() throws ConnectionErrorException, IOException {
         // GET /user/me
-        HttpGet request;
+        URI uri;
         try {
             URIBuilder uriBuilder = new URIBuilder(webserviceUrl.concat("/user/me"));
             uriBuilder.addParameter("token", token);
-            request = new HttpGet(uriBuilder.build());
+            uri = uriBuilder.build();
         }
         catch (URISyntaxException ex) {
             // TODO: Handle somehow?
             return null;
         }
 
+        HttpGet request = new HttpGet(uri);
         HttpResponse response = httpClient.execute(request);
         BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         String content = reader.lines().collect(Collectors.joining("\n"));
 
         if(response.getStatusLine().getStatusCode() != 200) {
+            // TODO: More appropriate exception?
             throw new ConnectionErrorException(content);
         }
 
