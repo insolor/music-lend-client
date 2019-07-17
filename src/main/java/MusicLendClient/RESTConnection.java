@@ -13,7 +13,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
