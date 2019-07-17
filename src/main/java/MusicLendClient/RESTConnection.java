@@ -25,8 +25,6 @@ public class RESTConnection implements Connection {
     private String webserviceUrl;
     private HttpClient httpClient;
     private String token;
-    private Shop shop;
-    private DummyUser user;
 
     private class UserInfo {
         @SerializedName("username")
