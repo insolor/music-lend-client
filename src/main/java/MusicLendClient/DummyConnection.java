@@ -39,6 +39,8 @@ class DummyConnection implements Connection {
             new Instrument(3, "Барабанная установка", "Описание", BigDecimal.valueOf(321)),
             new Instrument(4, "Бас-гитара", "Описание бас-гитары", BigDecimal.valueOf(444))
         ));
+
+        cart = new Cart();
     }
 
     public Shop getShop() {
