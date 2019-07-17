@@ -45,8 +45,7 @@ class DummyConnection implements Connection {
     }
 
     public Cart getCart() {
-        // not implemented yet
-        return null;
+        return user.getCart();
     }
 
     public User getUser() {
