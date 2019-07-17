@@ -65,12 +65,10 @@ public class RESTConnection implements Connection {
         token = reader.readLine();
     }
 
-    @Override
-    public User getUser() throws UnexpectedResultException, IOException {
-        // GET /user/me
+    private String httpGet(String webserviceUrl, String path, String token) throws IOException, UnexpectedResultException {
         URI uri;
         try {
-            URIBuilder uriBuilder = new URIBuilder(webserviceUrl.concat("/user/me"));
+            URIBuilder uriBuilder = new URIBuilder(webserviceUrl.concat(path));
             uriBuilder.addParameter("token", token);
             uri = uriBuilder.build();
         }
@@ -88,35 +86,21 @@ public class RESTConnection implements Connection {
             throw new UnexpectedResultException(content);
         }
 
+        return content;
+    }
+
+    @Override
+    public User getUser() throws UnexpectedResultException, IOException {
+        // GET /user/me
+        String content = httpGet(webserviceUrl, "/user/me", token);
         return new Gson().fromJson(content, User.class);
     }
 
     @Override
     public Collection<Instrument> getAvailableInstruments() throws UnexpectedResultException, IOException {
         // GET /instruments/available
-        URI uri;
-        try {
-            URIBuilder uriBuilder = new URIBuilder(webserviceUrl.concat("/instruments/available"));
-            uriBuilder.addParameter("token", token);
-            uri = uriBuilder.build();
-        }
-        catch (URISyntaxException ex) {
-            // TODO: Handle somehow?
-            return null;
-        }
-
-        HttpGet request = new HttpGet(uri);
-        HttpResponse response = httpClient.execute(request);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        String content = reader.lines().collect(Collectors.joining("\n"));
-
-        if(response.getStatusLine().getStatusCode() != 200) {
-            throw new UnexpectedResultException(content);
-        }
-
-        Gson gson = new Gson();
-
-        return gson.<LinkedList<Instrument>>fromJson(content, new TypeToken<LinkedList<Instrument>>(){}.getType());
+        String content = httpGet(webserviceUrl, "/instruments/available", token);
+        return new Gson().<LinkedList<Instrument>>fromJson(content, new TypeToken<LinkedList<Instrument>>(){}.getType());
     }
 
     @Override
