@@ -41,6 +41,10 @@ class LocalUser extends User implements Observable {
         return instrumentsInUse;
     }
 
+    void setInstrumentsInUse(Collection<Instrument> instrumentsInUse) {
+        this.instrumentsInUse = instrumentsInUse;
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         listeners.add(listener);

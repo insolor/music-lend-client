@@ -6,7 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
+import java.util.Collection;
 
 public class InstrumentsInUseController {
     @FXML
@@ -36,7 +36,9 @@ public class InstrumentsInUseController {
     }
 
     private void updateInstrumentsInUseList() {
-        tableInstrumentsInUse.setItems(FXCollections.observableArrayList(Main.localUser.getInstrumentsInUse()));
+        Collection<Instrument> instruments = Main.connection.getInstrumentsInUse();
+        Main.localUser.setInstrumentsInUse(instruments);
+        tableInstrumentsInUse.setItems(FXCollections.observableArrayList(instruments));
     }
 
     @FXML

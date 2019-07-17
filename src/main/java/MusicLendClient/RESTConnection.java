@@ -99,6 +99,12 @@ public class RESTConnection implements Connection {
     }
 
     @Override
+    public Collection<Instrument> getInstrumentsInUse() {
+        // GET /instruments/inuse/me
+        return null;
+    }
+
+    @Override
     public Cart getCart() {
         // GET /cart/my
         return null;

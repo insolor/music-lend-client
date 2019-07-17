@@ -48,6 +48,11 @@ class DummyConnection implements Connection {
         return shop.getAvailableInstruments();
     }
 
+    @Override
+    public Collection<Instrument> getInstrumentsInUse() {
+        return user.getInstrumentsInUse();
+    }
+
     public Cart getCart() {
         return cart;
     }
