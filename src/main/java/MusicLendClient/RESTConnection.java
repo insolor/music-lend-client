@@ -79,13 +79,12 @@ public class RESTConnection implements Connection {
 
         HttpResponse response = httpClient.execute(request);
         BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        String content = reader.lines().collect(Collectors.joining("\n"));
 
         if(response.getStatusLine().getStatusCode() != 200) {
-            String content = reader.lines().collect(Collectors.joining("\n"));
             throw new ConnectionErrorException(content);
         }
 
-        String content = reader.lines().collect(Collectors.joining("\n"));
         return new Gson().fromJson(content, User.class);
     }
 
