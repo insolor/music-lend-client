@@ -49,7 +49,7 @@ public class OrderInstrumentsController {
     }
 
     @FXML
-    private void showCart() throws IOException {
+    private void showCart() throws IOException, Connection.UnexpectedResultException {
         // Don't show cart if it's empty
         User user = Main.connection.getUser();
         if(user.getInstrumentsInCart().isEmpty()) {

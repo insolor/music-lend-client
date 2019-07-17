@@ -6,8 +6,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
+
 public class InstrumentsInUseController {
-    private User user = Main.connection.getUser();
+    private User user;
 
     @FXML
     TableView<Instrument> tableInstrumentsInUse;
@@ -40,7 +42,8 @@ public class InstrumentsInUseController {
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException, Connection.UnexpectedResultException {
+        user = Main.connection.getUser();
         initTableColumns();
         updateInstrumentsInUseList();
         user.addListener(observable -> updateInstrumentsInUseList());

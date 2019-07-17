@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 interface Connection {
-    User getUser() throws ConnectionErrorException, IOException;
+    User getUser() throws UnexpectedResultException, IOException;
     Shop getShop();
     Cart getCart();
     void addToCart(Instrument instrument);
@@ -19,6 +19,11 @@ interface Connection {
     class BadUserException extends Exception { }
     class ConnectionErrorException extends Exception {
         ConnectionErrorException(String message) {
+            super(message);
+        }
+    }
+    class UnexpectedResultException extends Exception {
+        UnexpectedResultException(String message) {
             super(message);
         }
     }

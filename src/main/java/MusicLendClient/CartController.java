@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 public class CartController {
@@ -37,7 +38,7 @@ public class CartController {
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException, Connection.UnexpectedResultException {
         user = Main.connection.getUser();
         initTableColumns();
         updateInstrumentsInCart();

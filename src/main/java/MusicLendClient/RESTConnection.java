@@ -65,7 +65,7 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public User getUser() throws ConnectionErrorException, IOException {
+    public User getUser() throws UnexpectedResultException, IOException {
         // GET /user/me
         URI uri;
         try {
@@ -85,7 +85,7 @@ public class RESTConnection implements Connection {
 
         if(response.getStatusLine().getStatusCode() != 200) {
             // TODO: More appropriate exception?
-            throw new ConnectionErrorException(content);
+            throw new UnexpectedResultException(content);
         }
 
         return new Gson().fromJson(content, User.class);
