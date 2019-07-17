@@ -11,20 +11,18 @@ class User implements Observable {
     private Boolean _isAdmin;
     private Collection<Instrument> instrumentsInUse;
     private Collection<InvalidationListener> listeners = new HashSet<>();
-    private Cart cart;
 
     User() {
-        this(Boolean.FALSE, new LinkedList<>(), new Cart());
+        this(Boolean.FALSE, new LinkedList<>());
     }
 
     User(Boolean isAdmin) {
-        this(isAdmin, new LinkedList<>(), new Cart());
+        this(isAdmin, new LinkedList<>());
     }
 
-    User(Boolean isAdmin, Collection<Instrument> instrumentsInUse, Cart cart) {
+    User(Boolean isAdmin, Collection<Instrument> instrumentsInUse) {
         this._isAdmin = isAdmin;
         this.instrumentsInUse = instrumentsInUse;
-        this.cart = cart;
     }
 
     Boolean isAdmin() {
@@ -33,10 +31,6 @@ class User implements Observable {
 
     Collection<Instrument> getInstrumentsInUse() {
         return instrumentsInUse;
-    }
-
-    Cart getCart() {
-        return cart;
     }
 
     @Override

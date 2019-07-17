@@ -27,8 +27,16 @@ public class Cart {
         return promocode;
     }
 
+    void setPromocode(String promocode) {
+        this.promocode = promocode;
+    }
+
     Integer getDays() {
         return days;
+    }
+
+    void setDays(Integer days) {
+        this.days = days;
     }
 }
 

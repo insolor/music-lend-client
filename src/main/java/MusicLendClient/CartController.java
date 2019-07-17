@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 
 public class CartController {
     private User user;
+    private Cart cart;
 
     @FXML
     TextField txtPromo, txtSum, txtDiscountPercent, txtDiscountSum, txtSumToPay;
@@ -34,14 +35,18 @@ public class CartController {
     }
 
     private void updateInstrumentsInCart() {
-        tableInstrumentsInCart.setItems(FXCollections.observableArrayList(user.getCart().getInstruments()));
+        tableInstrumentsInCart.setItems(FXCollections.observableArrayList(cart.getInstruments()));
     }
 
     @FXML
     void initialize() throws IOException, Connection.UnexpectedResultException {
         user = Main.connection.getUser();
+        cart = Main.connection.getCart();
+
         initTableColumns();
         updateInstrumentsInCart();
+        spinNumberOfDays.getValueFactory().setValue(cart.getDays());
+        txtPromo.setText(cart.getPromocode());
 
         // action when promocode text is changed
         txtPromo.textProperty().addListener((observable, oldValue, newValue)-> {
@@ -64,6 +69,7 @@ public class CartController {
     void removeFromCart() {
         Instrument instrument = tableInstrumentsInCart.getSelectionModel().getSelectedItem();
         if(instrument != null) {
+            cart.getInstruments().remove(instrument);
             Main.connection.removeFromCart(instrument);
             updateInstrumentsInCart();
             recalcCart();
@@ -72,8 +78,11 @@ public class CartController {
 
     @FXML
     void pay() {
-        if(!user.getCart().getInstruments().isEmpty()) {
-            Main.connection.pay(new Cart(user.getCart().getInstruments(), txtPromo.getText(), spinNumberOfDays.getValue()));
+        if(!cart.getInstruments().isEmpty()) {
+            cart.setPromocode(txtPromo.getText());
+            cart.setDays(spinNumberOfDays.getValue());
+            Main.connection.pay(cart);
+            cart = Main.connection.getCart();
             updateInstrumentsInCart();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
             alert.showAndWait();

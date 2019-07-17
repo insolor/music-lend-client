@@ -11,6 +11,7 @@ import java.util.Map;
 class DummyConnection implements Connection {
     private Shop shop;
     private DummyUser user;
+    private Cart cart;
 
     private static Map<String, DummyUser> users  = new HashMap<String, DummyUser>() {{
         put("admin", new DummyUser("", Boolean.TRUE));
@@ -45,7 +46,7 @@ class DummyConnection implements Connection {
     }
 
     public Cart getCart() {
-        return user.getCart();
+        return cart;
     }
 
     public User getUser() {
@@ -60,7 +61,7 @@ class DummyConnection implements Connection {
         // TODO: check if the instrument is available
         shop.getAvailableInstruments().remove(instrument);
         // TODO: check if the instrument not in cart yet
-        user.getCart().getInstruments().add(instrument);
+        cart.getInstruments().add(instrument);
     }
 
     public void removeFromCart(Instrument instrument) throws NullPointerException {
@@ -69,14 +70,14 @@ class DummyConnection implements Connection {
         }
 
         // TODO: check if the instrument not in cart
-        user.getCart().getInstruments().remove(instrument);
+        cart.getInstruments().remove(instrument);
         // TODO: check if the instrument is available
         shop.getAvailableInstruments().add(instrument);
     }
 
     public void removeFromCartAll() {
-        shop.getAvailableInstruments().addAll(user.getCart().getInstruments());
-        user.getCart().getInstruments().clear();
+        shop.getAvailableInstruments().addAll(cart.getInstruments());
+        cart.getInstruments().clear();
     }
 
     public BigDecimal getPromocodePercent(String promocode) {
@@ -120,8 +121,8 @@ class DummyConnection implements Connection {
 
     public void pay(Cart cart) {
         // For dummy connection just move instruments from cart to instruments in use
-        user.getInstrumentsInUse().addAll(user.getCart().getInstruments());
-        user.getCart().getInstruments().clear();
+        user.getInstrumentsInUse().addAll(cart.getInstruments());
+        cart.getInstruments().clear();
     }
 
     public void returnInstrument(Instrument instrument) {
