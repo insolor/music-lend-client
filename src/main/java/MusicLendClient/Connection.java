@@ -6,7 +6,7 @@ import java.util.Collection;
 
 interface Connection {
     User getUser() throws UnexpectedResultException, IOException;
-    Collection<Instrument> getAvailableInstruments();
+    Collection<Instrument> getAvailableInstruments() throws UnexpectedResultException, IOException ;
     Collection<Instrument> getInstrumentsInUse();
     Cart getCart();
     void addToCart(Instrument instrument);

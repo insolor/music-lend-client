@@ -1,11 +1,14 @@
 package MusicLendClient;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigDecimal;
 
 public class Instrument {
     private Integer id;
     private String name;
     private String description;
+    @SerializedName("price")
     private BigDecimal priceForDay;
 
     Instrument(Integer id, String name, String description, BigDecimal priceForDay) {

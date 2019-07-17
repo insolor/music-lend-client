@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -15,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class OrderInstrumentsController {
     @FXML
@@ -68,8 +71,21 @@ public class OrderInstrumentsController {
     }
 
     @FXML
-    void initialize() {
-        Main.shop = new Shop(Main.connection.getAvailableInstruments());
+    void initialize() throws IOException {
+        Collection<Instrument> instruments;
+
+        try {
+            instruments = Main.connection.getAvailableInstruments();
+        }
+        catch (Connection.UnexpectedResultException ex) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Ошибка");
+            errorAlert.setContentText("Ошибка при запросе данных:\n".concat(ex.getMessage()));
+            errorAlert.showAndWait();
+            instruments = new LinkedList<>();
+        }
+
+        Main.shop = new Shop(instruments);
         initTableColumns();
         updateAvailableInstrumentsList();
 

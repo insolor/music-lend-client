@@ -1,8 +1,8 @@
 package MusicLendClient;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -13,10 +13,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 public class RESTConnection implements Connection {
@@ -92,21 +94,43 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public Collection<Instrument> getAvailableInstruments() {
+    public Collection<Instrument> getAvailableInstruments() throws UnexpectedResultException, IOException {
         // GET /instruments/available
-        return null;
+        URI uri;
+        try {
+            URIBuilder uriBuilder = new URIBuilder(webserviceUrl.concat("/instruments/available"));
+            uriBuilder.addParameter("token", token);
+            uri = uriBuilder.build();
+        }
+        catch (URISyntaxException ex) {
+            // TODO: Handle somehow?
+            return null;
+        }
+
+        HttpGet request = new HttpGet(uri);
+        HttpResponse response = httpClient.execute(request);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        String content = reader.lines().collect(Collectors.joining("\n"));
+
+        if(response.getStatusLine().getStatusCode() != 200) {
+            throw new UnexpectedResultException(content);
+        }
+
+        Gson gson = new Gson();
+
+        return gson.<LinkedList<Instrument>>fromJson(content, new TypeToken<LinkedList<Instrument>>(){}.getType());
     }
 
     @Override
     public Collection<Instrument> getInstrumentsInUse() {
         // GET /instruments/inuse/me
-        return null;
+        return new LinkedList<>();
     }
 
     @Override
     public Cart getCart() {
         // GET /cart/my
-        return null;
+        return new Cart();
     }
 
     @Override
@@ -133,7 +157,7 @@ public class RESTConnection implements Connection {
     @Override
     public BigDecimal getPromocodePercent(String promocode) {
         // GET /promocode & text=TEXT
-        return null;
+        return BigDecimal.valueOf(0);
     }
 
     @Override
