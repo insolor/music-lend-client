@@ -20,7 +20,7 @@ public class MainWindowController {
     private Tab tabOrderInstruments, tabInstrumentsInUse, tabAdmin;
 
     @FXML
-    void initialize() throws IOException {
+    void initialize() throws IOException, Connection.UnexpectedResultException {
         tabPane.getTabs().remove(tabAdmin);
 
         user = Main.connection.getUser();
