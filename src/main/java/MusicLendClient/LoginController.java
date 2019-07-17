@@ -42,7 +42,7 @@ public class LoginController {
             errorAlert.showAndWait();
             return;
         }
-        catch (Connection.ConnectionErrorException ex) {
+        catch (Connection.ConnectionErrorException | IOException ex) {
             errorAlert.setContentText("Не удалось подключиться к серверу");
             errorAlert.showAndWait();
             return;

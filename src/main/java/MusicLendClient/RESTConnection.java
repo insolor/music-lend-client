@@ -85,7 +85,6 @@ public class RESTConnection implements Connection {
         String content = reader.lines().collect(Collectors.joining("\n"));
 
         if(response.getStatusLine().getStatusCode() != 200) {
-            // TODO: More appropriate exception?
             throw new UnexpectedResultException(content);
         }
 

@@ -2,6 +2,7 @@ package MusicLendClient;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
@@ -18,10 +19,19 @@ public class MainWindowController {
     private Tab tabOrderInstruments, tabInstrumentsInUse, tabAdmin;
 
     @FXML
-    void initialize() throws IOException, Connection.UnexpectedResultException {
+    void initialize() throws IOException {
         tabPane.getTabs().remove(tabAdmin);
 
-        Main.localUser = LocalUser.fromUser(Main.connection.getUser());
+        try {
+            Main.localUser = LocalUser.fromUser(Main.connection.getUser());
+        }
+        catch (Connection.UnexpectedResultException ex) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Ошибка");
+            errorAlert.setContentText("Ошибка при запросе данных:\n".concat(ex.getMessage()));
+            errorAlert.showAndWait();
+            stage.close();
+        }
 
         if(Main.localUser.isAdmin()) {
             tabPane.getTabs().add(tabAdmin);
