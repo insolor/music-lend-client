@@ -12,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import org.apache.http.conn.HttpHostConnectException;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 
@@ -25,7 +26,7 @@ public class LoginController {
     private TextField txtUserName, txtPassword, txtWebserviceURL;
 
     @FXML
-    private void login() throws Exception {
+    private void login() throws IOException {
         Alert errorAlert = new Alert(AlertType.ERROR);
         errorAlert.setHeaderText("Ошибка");
 
@@ -43,7 +44,7 @@ public class LoginController {
             errorAlert.showAndWait();
             return;
         }
-        catch (HttpHostConnectException httpException) {
+        catch (Connection.ConnectionErrorException ex) {
             errorAlert.setContentText("Не удалось подключиться к серверу");
             errorAlert.showAndWait();
             return;
@@ -53,7 +54,7 @@ public class LoginController {
         stage.close();
     }
 
-    private void openMainWindow() throws Exception {
+    private void openMainWindow() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/MainWindow.fxml"));
         Stage mainWindow = new Stage();
         mainWindow.setTitle("Аренда музыкальных инструментов");
