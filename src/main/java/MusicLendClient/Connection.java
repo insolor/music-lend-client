@@ -1,9 +1,10 @@
 package MusicLendClient;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 interface Connection {
-    User getUser() throws ConnectionErrorException;
+    User getUser() throws ConnectionErrorException, IOException;
     Shop getShop();
     Cart getCart();
     void addToCart(Instrument instrument);

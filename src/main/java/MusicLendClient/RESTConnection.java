@@ -64,7 +64,7 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public User getUser() throws ConnectionErrorException {
+    public User getUser() throws ConnectionErrorException, IOException {
         // GET /user/me
         HttpGet request;
         try {
@@ -77,17 +77,8 @@ public class RESTConnection implements Connection {
             return null;
         }
 
-        HttpResponse response;
-        BufferedReader reader;
-
-        try {
-            response = httpClient.execute(request);
-            reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        HttpResponse response = httpClient.execute(request);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
         if(response.getStatusLine().getStatusCode() != 200) {
             String content = reader.lines().collect(Collectors.joining("\n"));
