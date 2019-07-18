@@ -51,12 +51,6 @@ public class OrderInstrumentsController {
 
     @FXML
     private void showCart() throws IOException {
-        // Don't show cart if it's empty
-        Cart cart = Main.connection.getCart();
-        if(cart.getInstruments().isEmpty()) {
-            return;
-        }
-
         Parent root = FXMLLoader.load(getClass().getResource("/Cart.fxml"));
         Stage cartWindow = new Stage();
         cartWindow.setTitle("Корзина");

@@ -8,7 +8,7 @@ interface Connection {
     User getUser() throws UnexpectedResultException, IOException;
     Collection<Instrument> getAvailableInstruments() throws UnexpectedResultException, IOException ;
     Collection<Instrument> getInstrumentsInUse();
-    Cart getCart();
+    Cart getCart() throws UnexpectedResultException, IOException;
     void addToCart(Instrument instrument);
     void removeFromCart(Instrument instrument);
     void removeFromCartAll();

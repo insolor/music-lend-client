@@ -39,7 +39,22 @@ public class CartController {
 
     @FXML
     void initialize() {
-        cart = Main.connection.getCart();
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Ошибка");
+
+        try {
+            cart = Main.connection.getCart();
+        }
+        catch (IOException ex) {
+            errorAlert.setContentText("Ошибка соединения");
+            errorAlert.showAndWait();
+            cart = new Cart();
+        }
+        catch (Connection.UnexpectedResultException ex) {
+            errorAlert.setContentText("Ошибка при запросе данных:\n".concat(ex.getMessage()));
+            errorAlert.showAndWait();
+            cart = new Cart();
+        }
 
         initTableColumns();
         updateInstrumentsInCart();
@@ -80,10 +95,27 @@ public class CartController {
             cart.setPromocode(txtPromo.getText());
             cart.setDays(spinNumberOfDays.getValue());
             Main.connection.pay(cart);
-            cart = Main.connection.getCart();
-            updateInstrumentsInCart();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
             alert.showAndWait();
+
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Ошибка");
+
+            try {
+                cart = Main.connection.getCart();
+            }
+            catch (IOException ex) {
+                errorAlert.setContentText("Ошибка соединения");
+                errorAlert.showAndWait();
+                cart = new Cart();
+            }
+            catch (Connection.UnexpectedResultException ex) {
+                errorAlert.setContentText("Ошибка при запросе данных:\n".concat(ex.getMessage()));
+                errorAlert.showAndWait();
+                cart = new Cart();
+            }
+
+            updateInstrumentsInCart();
             Main.localUser.invalidate();
         }
     }

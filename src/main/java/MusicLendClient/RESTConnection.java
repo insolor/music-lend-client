@@ -99,7 +99,7 @@ public class RESTConnection implements Connection {
     public Collection<Instrument> getAvailableInstruments() throws UnexpectedResultException, IOException {
         // GET /instruments/available
         String content = httpGet(webserviceUrl, "/instruments/available", token);
-        return new Gson().<LinkedList<Instrument>>fromJson(content, new TypeToken<LinkedList<Instrument>>(){}.getType());
+        return new Gson().fromJson(content, new TypeToken<LinkedList<Instrument>>(){}.getType());
     }
 
     @Override
@@ -109,9 +109,10 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public Cart getCart() {
+    public Cart getCart() throws UnexpectedResultException, IOException {
         // GET /cart/my
-        return new Cart();
+        String content = httpGet(webserviceUrl, "/cart/my", token);
+        return new Gson().fromJson(content, Cart.class);
     }
 
     @Override
