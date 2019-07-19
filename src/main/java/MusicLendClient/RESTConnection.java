@@ -103,7 +103,7 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public Collection<Instrument> getInstrumentsInUse() {
+    public Collection<Instrument> getInstrumentsInUse() throws UnexpectedResultException, IOException {
         // GET /instruments/inuse/me
         return new LinkedList<>();
     }
@@ -116,44 +116,44 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public void addToCart(Instrument instrument) {
+    public void addToCart(Instrument instrument) throws UnexpectedResultException, IOException {
         // PUT /cart/my & instrument=ID
     }
 
     @Override
-    public void removeFromCart(Instrument instrument) {
+    public void removeFromCart(Instrument instrument) throws UnexpectedResultException, IOException {
         // DELETE /cart/my & instrument=ID
     }
 
     @Override
-    public void removeFromCartAll() {
+    public void removeFromCartAll() throws UnexpectedResultException, IOException {
         // DELETE /cart/my/all
     }
 
     @Override
-    public CartCalculationResult calculateCart(Cart cart) {
+    public CartCalculationResult calculateCart(Cart cart) throws UnexpectedResultException, IOException {
         // GET /cart/my/calculation
         return null;
     }
 
     @Override
-    public BigDecimal getPromocodePercent(String promocode) {
+    public BigDecimal getPromocodePercent(String promocode) throws UnexpectedResultException, IOException {
         // GET /promocode & text=TEXT
         return BigDecimal.valueOf(0);
     }
 
     @Override
-    public void pay(Cart cart) {
+    public void pay(Cart cart) throws UnexpectedResultException, IOException {
         // PUT /cart/my/payment
     }
 
     @Override
-    public void returnInstrument(Instrument instrument) {
+    public void returnInstrument(Instrument instrument) throws UnexpectedResultException, IOException {
         // DELETE /instruments/in_use/me & instrument=ID
     }
 
     @Override
-    public void returnAllInstruments() {
+    public void returnAllInstruments() throws UnexpectedResultException, IOException {
         // DELETE /instruments/in_use/me/all
     }
 }

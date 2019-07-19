@@ -6,6 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.util.Collection;
 
 public class InstrumentsInUseController {
@@ -16,7 +17,17 @@ public class InstrumentsInUseController {
     void returnInstrument() {
         Instrument instrument = tableInstrumentsInUse.getSelectionModel().getSelectedItem();
         if(instrument != null) {
-            Main.connection.returnInstrument(instrument);
+            try {
+                Main.connection.returnInstrument(instrument);
+            }
+            catch (IOException ex) {
+                Main.showError("Ошибка соединения", "");
+                return;
+            }
+            catch (Connection.UnexpectedResultException ex) {
+                Main.showError("Ошибка при запросе данных", ex.getMessage());
+                return;
+            }
             updateInstrumentsInUseList();
             Main.shop.invalidate();
         }
@@ -24,7 +35,17 @@ public class InstrumentsInUseController {
 
     @FXML
     void returnAllInstruments() {
-        Main.connection.returnAllInstruments();
+        try {
+            Main.connection.returnAllInstruments();
+        }
+        catch (IOException ex) {
+            Main.showError("Ошибка соединения", "");
+            return;
+        }
+        catch (Connection.UnexpectedResultException ex) {
+            Main.showError("Ошибка при запросе данных", ex.getMessage());
+            return;
+        }
         updateInstrumentsInUseList();
         Main.shop.invalidate();
     }
@@ -36,7 +57,18 @@ public class InstrumentsInUseController {
     }
 
     private void updateInstrumentsInUseList() {
-        Collection<Instrument> instruments = Main.connection.getInstrumentsInUse();
+        Collection<Instrument> instruments;
+        try {
+            instruments = Main.connection.getInstrumentsInUse();
+        }
+        catch (IOException ex) {
+            Main.showError("Ошибка соединения", "");
+            return;
+        }
+        catch (Connection.UnexpectedResultException ex) {
+            Main.showError("Ошибка при запросе данных", ex.getMessage());
+            return;
+        }
         Main.localUser.setInstrumentsInUse(instruments);
         tableInstrumentsInUse.setItems(FXCollections.observableArrayList(instruments));
     }

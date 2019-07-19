@@ -24,6 +24,11 @@ public class MainWindowController {
         try {
             Main.localUser = LocalUser.fromUser(Main.connection.getUser());
         }
+        catch (IOException ex) {
+            Main.showError("Ошибка соединения", "");
+            stage.close();  // FIXME: not working
+            return;
+        }
         catch (Connection.UnexpectedResultException ex) {
             Main.showError("Ошибка при запросе данных", ex.getMessage());
             stage.close();  // FIXME: not working

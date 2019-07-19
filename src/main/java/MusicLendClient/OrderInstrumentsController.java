@@ -43,7 +43,17 @@ public class OrderInstrumentsController {
     private void addToCart() {
         Instrument instrument = tableAvailableInstruments.getSelectionModel().getSelectedItem();
         if(instrument != null) {
-            Main.connection.addToCart(instrument);
+            try {
+                Main.connection.addToCart(instrument);
+            }
+            catch (IOException ex) {
+                Main.showError("Ошибка соединения", "");
+                return;
+            }
+            catch (Connection.UnexpectedResultException ex) {
+                Main.showError("Ошибка при запросе данных", ex.getMessage());
+                return;
+            }
             updateAvailableInstrumentsList();
         }
     }

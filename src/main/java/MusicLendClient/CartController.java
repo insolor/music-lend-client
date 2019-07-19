@@ -59,8 +59,19 @@ public class CartController {
         // action when promocode text is changed
         txtPromo.textProperty().addListener((observable, oldValue, newValue)-> {
             BigDecimal oldPercent, newPercent;
-            oldPercent = Main.connection.getPromocodePercent(oldValue);
-            newPercent = Main.connection.getPromocodePercent(newValue);
+            try {
+                oldPercent = Main.connection.getPromocodePercent(oldValue);
+                newPercent = Main.connection.getPromocodePercent(newValue);
+            }
+            catch (IOException ex) {
+                Main.showError("Ошибка соединения", "");
+                return;
+            }
+            catch (Connection.UnexpectedResultException ex) {
+                Main.showError("Ошибка при запросе данных", ex.getMessage());
+                return;
+            }
+
             if(!oldPercent.equals(newPercent)) {
                 // TODO: show promocode status somehow
                 recalcCart();
@@ -77,8 +88,19 @@ public class CartController {
     void removeFromCart() {
         Instrument instrument = tableInstrumentsInCart.getSelectionModel().getSelectedItem();
         if(instrument != null) {
+            try {
+                Main.connection.removeFromCart(instrument);
+            }
+            catch (IOException ex) {
+                Main.showError("Ошибка соединения", "");
+                return;
+            }
+            catch (Connection.UnexpectedResultException ex) {
+                Main.showError("Ошибка при запросе данных", ex.getMessage());
+                return;
+            }
+
             cart.getInstruments().remove(instrument);
-            Main.connection.removeFromCart(instrument);
             updateInstrumentsInCart();
             recalcCart();
         }
@@ -89,7 +111,18 @@ public class CartController {
         if(!cart.getInstruments().isEmpty()) {
             cart.setPromocode(txtPromo.getText());
             cart.setDays(spinNumberOfDays.getValue());
-            Main.connection.pay(cart);
+            try {
+                Main.connection.pay(cart);
+            }
+            catch (IOException ex) {
+                Main.showError("Ошибка соединения", "");
+                return;
+            }
+            catch (Connection.UnexpectedResultException ex) {
+                Main.showError("Ошибка при запросе данных", ex.getMessage());
+                return;
+            }
+
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
             alert.showAndWait();
 
@@ -112,8 +145,19 @@ public class CartController {
 
     private void recalcCart() {
         Cart cart = new Cart(tableInstrumentsInCart.getItems(), txtPromo.getText(), spinNumberOfDays.getValue());
+        CartCalculationResult result;
+        try {
+            result = Main.connection.calculateCart(cart);
+        }
+        catch (IOException ex) {
+            Main.showError("Ошибка соединения", "");
+            return;
+        }
+        catch (Connection.UnexpectedResultException ex) {
+            Main.showError("Ошибка при запросе данных", ex.getMessage());
+            return;
+        }
 
-        CartCalculationResult result = Main.connection.calculateCart(cart);
         txtDiscountPercent.setText(result.getDiscountPercent().toString());
         txtDiscountSum.setText(result.getDiscountSum().toString());
         txtSumToPay.setText(result.getSumToBePaid().toString());
