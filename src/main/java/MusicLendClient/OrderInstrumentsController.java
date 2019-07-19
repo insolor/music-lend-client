@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -72,7 +71,7 @@ public class OrderInstrumentsController {
             instruments = Main.connection.getAvailableInstruments();
         }
         catch (Connection.UnexpectedResultException ex) {
-            Main.showError("Ошибка при запросе данных:\n".concat(ex.getMessage()));
+            Main.showError("Ошибка при запросе данных", ex.getMessage());
             instruments = new LinkedList<>();
         }
 

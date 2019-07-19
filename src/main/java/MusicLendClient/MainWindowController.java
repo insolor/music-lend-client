@@ -2,7 +2,6 @@ package MusicLendClient;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
@@ -26,8 +25,9 @@ public class MainWindowController {
             Main.localUser = LocalUser.fromUser(Main.connection.getUser());
         }
         catch (Connection.UnexpectedResultException ex) {
-            Main.showError("Ошибка при запросе данных:\n".concat(ex.getMessage()));
-            stage.close();
+            Main.showError("Ошибка при запросе данных", ex.getMessage());
+            stage.close();  // FIXME: not working
+            return;
         }
 
         if(Main.localUser.isAdmin()) {

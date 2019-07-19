@@ -43,11 +43,11 @@ public class CartController {
             cart = Main.connection.getCart();
         }
         catch (IOException ex) {
-            Main.showError("Ошибка соединения");
+            Main.showError("Ошибка соединения", "");
             cart = new Cart();
         }
         catch (Connection.UnexpectedResultException ex) {
-            Main.showError("Ошибка при запросе данных:\n".concat(ex.getMessage()));
+            Main.showError("Ошибка при запросе данных", ex.getMessage());
             cart = new Cart();
         }
 
@@ -97,11 +97,11 @@ public class CartController {
                 cart = Main.connection.getCart();
             }
             catch (IOException ex) {
-                Main.showError("Ошибка соединения");
+                Main.showError("Ошибка соединения", "");
                 cart = new Cart();
             }
             catch (Connection.UnexpectedResultException ex) {
-                Main.showError("Ошибка при запросе данных:\n".concat(ex.getMessage()));
+                Main.showError("Ошибка при запросе данных", ex.getMessage());
                 cart = new Cart();
             }
 

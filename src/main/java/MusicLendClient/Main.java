@@ -29,10 +29,11 @@ public class Main extends Application {
     static LocalUser localUser;
     static Shop shop;
 
-    static void showError(String message) {
+    static void showError(String header, String description) {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setHeaderText("Ошибка");
-        errorAlert.setContentText(message);
+        errorAlert.setTitle("Ошибка"); // window title
+        errorAlert.setHeaderText(header); // short description
+        errorAlert.setContentText(description); // full description
         errorAlert.showAndWait();
     }
 }

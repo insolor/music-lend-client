@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,11 +33,11 @@ public class LoginController {
             }
         }
         catch (Connection.BadUserException badUserException) {
-            Main.showError("Неправильное имя пользователя или пароль");
+            Main.showError("Неправильное имя пользователя или пароль", "");
             return;
         }
         catch (Connection.ConnectionErrorException | IOException ex) {
-            Main.showError("Не удалось подключиться к серверу");
+            Main.showError("Не удалось подключиться к серверу", "");
             return;
         }
 
@@ -48,12 +46,13 @@ public class LoginController {
     }
 
     private void openMainWindow() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/MainWindow.fxml"));
         Stage mainWindow = new Stage();
         mainWindow.setTitle("Аренда музыкальных инструментов");
+        MainWindowController.stage = mainWindow;
+
+        Parent root = FXMLLoader.load(getClass().getResource("/MainWindow.fxml"));
         Scene scene = new Scene(root);
         mainWindow.setScene(scene);
-        MainWindowController.stage = mainWindow;
         // mainWindow.setMaximized(Boolean.TRUE);
         mainWindow.show();
     }
