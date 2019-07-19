@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,4 +28,11 @@ public class Main extends Application {
     static Connection connection;
     static LocalUser localUser;
     static Shop shop;
+
+    static void showError(String message) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Ошибка");
+        errorAlert.setContentText(message);
+        errorAlert.showAndWait();
+    }
 }

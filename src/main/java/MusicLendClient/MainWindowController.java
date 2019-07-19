@@ -26,10 +26,7 @@ public class MainWindowController {
             Main.localUser = LocalUser.fromUser(Main.connection.getUser());
         }
         catch (Connection.UnexpectedResultException ex) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("Ошибка");
-            errorAlert.setContentText("Ошибка при запросе данных:\n".concat(ex.getMessage()));
-            errorAlert.showAndWait();
+            Main.showError("Ошибка при запросе данных:\n".concat(ex.getMessage()));
             stage.close();
         }
 

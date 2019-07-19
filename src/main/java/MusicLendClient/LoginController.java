@@ -25,9 +25,6 @@ public class LoginController {
 
     @FXML
     private void login() throws IOException {
-        Alert errorAlert = new Alert(AlertType.ERROR);
-        errorAlert.setHeaderText("Ошибка");
-
         try {
             if(comboConnectionType.getValue().equals("REST API")) {
                 Main.connection = new RESTConnection(txtWebserviceURL.getText(), txtUserName.getText(),
@@ -38,13 +35,11 @@ public class LoginController {
             }
         }
         catch (Connection.BadUserException badUserException) {
-            errorAlert.setContentText("Неправильное имя пользователя или пароль");
-            errorAlert.showAndWait();
+            Main.showError("Неправильное имя пользователя или пароль");
             return;
         }
         catch (Connection.ConnectionErrorException | IOException ex) {
-            errorAlert.setContentText("Не удалось подключиться к серверу");
-            errorAlert.showAndWait();
+            Main.showError("Не удалось подключиться к серверу");
             return;
         }
 

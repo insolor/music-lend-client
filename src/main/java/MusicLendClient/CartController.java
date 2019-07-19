@@ -39,20 +39,15 @@ public class CartController {
 
     @FXML
     void initialize() {
-        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setHeaderText("Ошибка");
-
         try {
             cart = Main.connection.getCart();
         }
         catch (IOException ex) {
-            errorAlert.setContentText("Ошибка соединения");
-            errorAlert.showAndWait();
+            Main.showError("Ошибка соединения");
             cart = new Cart();
         }
         catch (Connection.UnexpectedResultException ex) {
-            errorAlert.setContentText("Ошибка при запросе данных:\n".concat(ex.getMessage()));
-            errorAlert.showAndWait();
+            Main.showError("Ошибка при запросе данных:\n".concat(ex.getMessage()));
             cart = new Cart();
         }
 
@@ -98,20 +93,15 @@ public class CartController {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Оплачено", ButtonType.OK);
             alert.showAndWait();
 
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("Ошибка");
-
             try {
                 cart = Main.connection.getCart();
             }
             catch (IOException ex) {
-                errorAlert.setContentText("Ошибка соединения");
-                errorAlert.showAndWait();
+                Main.showError("Ошибка соединения");
                 cart = new Cart();
             }
             catch (Connection.UnexpectedResultException ex) {
-                errorAlert.setContentText("Ошибка при запросе данных:\n".concat(ex.getMessage()));
-                errorAlert.showAndWait();
+                Main.showError("Ошибка при запросе данных:\n".concat(ex.getMessage()));
                 cart = new Cart();
             }
 

@@ -72,10 +72,7 @@ public class OrderInstrumentsController {
             instruments = Main.connection.getAvailableInstruments();
         }
         catch (Connection.UnexpectedResultException ex) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("Ошибка");
-            errorAlert.setContentText("Ошибка при запросе данных:\n".concat(ex.getMessage()));
-            errorAlert.showAndWait();
+            Main.showError("Ошибка при запросе данных:\n".concat(ex.getMessage()));
             instruments = new LinkedList<>();
         }
 
