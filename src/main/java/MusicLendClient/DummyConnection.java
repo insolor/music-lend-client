@@ -88,6 +88,12 @@ class DummyConnection implements Connection {
         cart.getInstruments().clear();
     }
 
+    @Override
+    public void updateCartData(String promocode, Integer days) {
+        cart.setPromocode(promocode);
+        cart.setDays(days);
+    }
+
     public BigDecimal getPromocodePercent(String promocode) {
         if(promocode.equals("")) {
             return BigDecimal.ZERO;
@@ -97,7 +103,11 @@ class DummyConnection implements Connection {
         }
     }
 
-    public CartCalculationResult calculateCart(Cart cart) {
+    public CartCalculationResult calculateCart() {
+        return calculateCart(this.cart);
+    }
+
+    CartCalculationResult calculateCart(Cart cart) {
         // set discount percent
         // set discount sum
         // set sum to pay

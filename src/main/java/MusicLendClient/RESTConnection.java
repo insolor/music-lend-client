@@ -17,7 +17,9 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class RESTConnection implements Connection {
@@ -64,11 +66,22 @@ public class RESTConnection implements Connection {
         token = reader.readLine();
     }
 
-    private String httpGet(String webserviceUrl, String path, String token) throws IOException, UnexpectedResultException {
+    private String httpGet(String webserviceUrl, String path, String token)
+            throws IOException, UnexpectedResultException {
+        return httpGet(webserviceUrl, path, token, null);
+    }
+    
+    private String httpGet(String webserviceUrl, String path, String token, Map<String, String> parameters)
+            throws IOException, UnexpectedResultException {
         URI uri;
         try {
             URIBuilder uriBuilder = new URIBuilder(webserviceUrl.concat(path));
             uriBuilder.addParameter("token", token);
+            if(parameters != null) {
+                for(Map.Entry<String, String> param: parameters.entrySet()) {
+                    uriBuilder.addParameter(param.getKey(), param.getValue());
+                }
+            }
             uri = uriBuilder.build();
         }
         catch (URISyntaxException ex) {
@@ -105,7 +118,8 @@ public class RESTConnection implements Connection {
     @Override
     public Collection<Instrument> getInstrumentsInUse() throws UnexpectedResultException, IOException {
         // GET /instruments/inuse/me
-        return new LinkedList<>();
+        String content = httpGet(webserviceUrl, "/instruments/inuse/me", token);
+        return new Gson().fromJson(content, new TypeToken<LinkedList<Instrument>>(){}.getType());
     }
 
     @Override
@@ -131,15 +145,24 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public CartCalculationResult calculateCart(Cart cart) throws UnexpectedResultException, IOException {
+    public void updateCartData(String promocode, Integer days) throws UnexpectedResultException, IOException {
+        // PUT /cart/my promocode=PROMOCODE days=DAYS
+    }
+
+    @Override
+    public CartCalculationResult calculateCart() throws UnexpectedResultException, IOException {
         // GET /cart/my/calculation
-        return null;
+        String content = httpGet(webserviceUrl, "/cart/my/calculation", token);
+        return new Gson().fromJson(content, CartCalculationResult.class);
     }
 
     @Override
     public BigDecimal getPromocodePercent(String promocode) throws UnexpectedResultException, IOException {
         // GET /promocode & text=TEXT
-        return BigDecimal.valueOf(0);
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("text", promocode);
+        String content = httpGet(webserviceUrl, "/promocode", token, parameters);
+        return new Gson().fromJson(content, BigDecimal.class);
     }
 
     @Override

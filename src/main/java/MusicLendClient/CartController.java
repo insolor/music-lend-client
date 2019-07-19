@@ -147,7 +147,8 @@ public class CartController {
         Cart cart = new Cart(tableInstrumentsInCart.getItems(), txtPromo.getText(), spinNumberOfDays.getValue());
         CartCalculationResult result;
         try {
-            result = Main.connection.calculateCart(cart);
+            Main.connection.updateCartData(cart.getPromocode(), cart.getDays());
+            result = Main.connection.calculateCart();
         }
         catch (IOException ex) {
             Main.showError("Ошибка соединения", "");
