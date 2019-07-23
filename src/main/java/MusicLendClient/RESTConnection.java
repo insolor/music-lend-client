@@ -66,15 +66,13 @@ public class RESTConnection implements Connection {
 
     private static String httpGet(String webserviceUrl, String path, String token)
             throws IOException, UnexpectedResultException {
-        return httpGet(webserviceUrl, path, token, null);
+        return httpGet(webserviceUrl, path, token, new HashMap<>());
     }
 
     private static URI buildUri(String url, String path, Map<String, String> parameters) throws URISyntaxException {
         URIBuilder uriBuilder = new URIBuilder(url.concat(path));
-        if(parameters != null) {
-            for(Map.Entry<String, String> param: parameters.entrySet()) {
-                uriBuilder.addParameter(param.getKey(), param.getValue());
-            }
+        for(Map.Entry<String, String> param: parameters.entrySet()) {
+            uriBuilder.addParameter(param.getKey(), param.getValue());
         }
         return uriBuilder.build();
     }
@@ -83,7 +81,6 @@ public class RESTConnection implements Connection {
             throws IOException, UnexpectedResultException {
         URI uri;
 
-        if(parameters==null) parameters = new HashMap<>();
         parameters.put("token", token);
 
         try {
