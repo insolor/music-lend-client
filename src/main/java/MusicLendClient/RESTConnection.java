@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class RESTConnection implements Connection {
     private String webserviceUrl;
-    private HttpClient httpClient;
+    private static HttpClient httpClient = HttpClientBuilder.create().build();
     private String token;
 
     private class UserInfo {
@@ -41,7 +41,6 @@ public class RESTConnection implements Connection {
     RESTConnection(String webserviceUrl, String userName, String password) throws BadUserException,
             ConnectionErrorException, IOException {
         this.webserviceUrl = webserviceUrl;
-        httpClient = HttpClientBuilder.create().build();
         HttpPost request = new HttpPost(webserviceUrl.concat("/auth"));
         request.addHeader("Content-Type", "application/json");
 
@@ -66,23 +65,30 @@ public class RESTConnection implements Connection {
         token = reader.readLine();
     }
 
-    private String httpGet(String webserviceUrl, String path, String token)
+    private static String httpGet(String webserviceUrl, String path, String token)
             throws IOException, UnexpectedResultException {
         return httpGet(webserviceUrl, path, token, null);
     }
-    
-    private String httpGet(String webserviceUrl, String path, String token, Map<String, String> parameters)
+
+    private static URI buildUri(String url, String path, Map<String, String> parameters) throws URISyntaxException {
+        URIBuilder uriBuilder = new URIBuilder(url.concat(path));
+        if(parameters != null) {
+            for(Map.Entry<String, String> param: parameters.entrySet()) {
+                uriBuilder.addParameter(param.getKey(), param.getValue());
+            }
+        }
+        return uriBuilder.build();
+    }
+
+    private static String httpGet(String webserviceUrl, String path, String token, Map<String, String> parameters)
             throws IOException, UnexpectedResultException {
         URI uri;
         try {
-            URIBuilder uriBuilder = new URIBuilder(webserviceUrl.concat(path));
-            uriBuilder.addParameter("token", token);
-            if(parameters != null) {
-                for(Map.Entry<String, String> param: parameters.entrySet()) {
-                    uriBuilder.addParameter(param.getKey(), param.getValue());
-                }
+            if(parameters==null) {
+                parameters = new HashMap<>();
             }
-            uri = uriBuilder.build();
+            parameters.put("token", token);
+            uri = buildUri(webserviceUrl, path, parameters);
         }
         catch (URISyntaxException ex) {
             // TODO: Handle somehow?
