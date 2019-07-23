@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -83,11 +82,11 @@ public class RESTConnection implements Connection {
     private static String httpGet(String webserviceUrl, String path, String token, Map<String, String> parameters)
             throws IOException, UnexpectedResultException {
         URI uri;
+
+        if(parameters==null) parameters = new HashMap<>();
+        parameters.put("token", token);
+
         try {
-            if(parameters==null) {
-                parameters = new HashMap<>();
-            }
-            parameters.put("token", token);
             uri = buildUri(webserviceUrl, path, parameters);
         }
         catch (URISyntaxException ex) {
@@ -95,6 +94,10 @@ public class RESTConnection implements Connection {
             return null;
         }
 
+        return httpGet(uri);
+    }
+
+    private static String httpGet(URI uri) throws IOException, UnexpectedResultException {
         HttpGet request = new HttpGet(uri);
         HttpResponse response = httpClient.execute(request);
         BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
