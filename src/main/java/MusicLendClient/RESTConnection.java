@@ -175,7 +175,7 @@ public class RESTConnection implements Connection {
     }
 
     @Override
-    public void pay(Cart cart) throws UnexpectedResultException, IOException {
+    public void pay() throws UnexpectedResultException, IOException {
         // PUT /cart/my/payment
     }
 

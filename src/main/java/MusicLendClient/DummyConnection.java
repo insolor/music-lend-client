@@ -137,7 +137,7 @@ class DummyConnection implements Connection {
         return new CartCalculationResult(discountPercent, discountSum, sumToBePaid);
     }
 
-    public void pay(Cart cart) {
+    public void pay() {
         // For dummy connection just move instruments from cart to instruments in use
         user.getInstrumentsInUse().addAll(cart.getInstruments());
         cart.getInstruments().clear();

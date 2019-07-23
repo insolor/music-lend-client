@@ -15,7 +15,7 @@ interface Connection {
     void updateCartData(String promocode, Integer days) throws UnexpectedResultException, IOException;
     CartCalculationResult calculateCart() throws UnexpectedResultException, IOException;
     BigDecimal getPromocodePercent(String promocode) throws UnexpectedResultException, IOException;
-    void pay(Cart cart) throws UnexpectedResultException, IOException;
+    void pay() throws UnexpectedResultException, IOException;
     void returnInstrument(Instrument instrument) throws UnexpectedResultException, IOException;
     void returnAllInstruments() throws UnexpectedResultException, IOException;
 

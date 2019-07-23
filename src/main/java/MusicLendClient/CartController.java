@@ -112,7 +112,7 @@ public class CartController {
             cart.setPromocode(txtPromo.getText());
             cart.setDays(spinNumberOfDays.getValue());
             try {
-                Main.connection.pay(cart);
+                Main.connection.pay();
             }
             catch (IOException ex) {
                 Main.showError("Ошибка соединения", "");
