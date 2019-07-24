@@ -1,5 +1,7 @@
 package MusicLendClient;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -41,8 +43,11 @@ public class Cart {
 }
 
 class CartCalculationResult {
+    @SerializedName("discount_percent")
     private BigDecimal discountPercent;
+    @SerializedName("discount_sum")
     private BigDecimal discountSum;
+    @SerializedName("sum")
     private BigDecimal sumToBePaid;
 
     CartCalculationResult(BigDecimal discountPercent, BigDecimal discountSum, BigDecimal sumToBePaid) {
