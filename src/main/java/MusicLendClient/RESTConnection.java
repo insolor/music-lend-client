@@ -212,6 +212,6 @@ public class RESTConnection implements Connection {
     @Override
     public void returnAllInstruments() throws UnexpectedResultException, IOException {
         // DELETE /instruments/in_use/me/all
-        httpPut(webserviceUrl, "/instruments/in_use/me/all", token, new HashMap<>());
+        httpDelete(webserviceUrl, "/instruments/in_use/me/all", token, new HashMap<>());
     }
 }
