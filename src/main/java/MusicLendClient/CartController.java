@@ -82,6 +82,16 @@ public class CartController {
         spinNumberOfDays.valueProperty().addListener((observable, oldValue, newValue)-> recalcCart());
 
         recalcCart();
+
+        // Show instrument description
+        tableInstrumentsInCart.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            if(newValue == null) {
+                textDescription.setText("");
+            }
+            else {
+                textDescription.setText(newValue.getDescription());
+            }
+        });
     }
 
     @FXML
