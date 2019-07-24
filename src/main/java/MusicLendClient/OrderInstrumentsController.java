@@ -36,7 +36,19 @@ public class OrderInstrumentsController {
     }
 
     private void updateAvailableInstrumentsList() {
-        tableAvailableInstruments.setItems(FXCollections.observableArrayList(Main.shop.getAvailableInstruments()));
+        Collection<Instrument> instruments;
+        try {
+            instruments = Main.connection.getAvailableInstruments();
+        }
+        catch (IOException ex) {
+            Main.showError("Ошибка соединения", "");
+            return;
+        }
+        catch (Connection.UnexpectedResultException ex) {
+            Main.showError("Ошибка при запросе данных", ex.getMessage());
+            return;
+        }
+        tableAvailableInstruments.setItems(FXCollections.observableArrayList(instruments));
     }
 
     @FXML
