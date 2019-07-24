@@ -79,7 +79,8 @@ public class RESTConnection implements Connection {
         try { uri = buildUri(webserviceUrl, path, parameters); }
         catch (URISyntaxException ex) { return null; }
 
-        return httpGet(uri);
+        HttpResponse response = httpClient.execute(new HttpGet(uri));
+        return parseResponse(response);
     }
 
     private static String parseResponse(HttpResponse response) throws UnexpectedResultException, IOException {
@@ -93,26 +94,29 @@ public class RESTConnection implements Connection {
         return content;
     }
 
-    private static String httpGet(URI uri) throws IOException, UnexpectedResultException {
-        HttpResponse response = httpClient.execute(new HttpGet(uri));
-        return parseResponse(response);
-    }
-
-    private static String httpPut(String webserviceUrl, String path, String token, Map<String, String> parameters)
+    private static void httpPut(String webserviceUrl, String path, String token, Map<String, String> parameters)
             throws IOException, UnexpectedResultException {
         URI uri;
         parameters.put("token", token);
 
         try { uri = buildUri(webserviceUrl, path, parameters); }
-        catch (URISyntaxException ex) { return null; }
+        catch (URISyntaxException ex) { return; }
 
-        return httpPut(uri);
-    }
-
-    private static String httpPut(URI uri) throws IOException, UnexpectedResultException {
         // Maybe add ability to put some payload?
         HttpResponse response = httpClient.execute(new HttpPut(uri));
-        return parseResponse(response);
+        parseResponse(response);
+    }
+
+    private static void httpDelete(String webserviceUrl, String path, String token, Map<String, String> parameters)
+            throws IOException, UnexpectedResultException {
+        URI uri;
+        parameters.put("token", token);
+
+        try { uri = buildUri(webserviceUrl, path, parameters); }
+        catch (URISyntaxException ex) { return; }
+
+        HttpResponse response = httpClient.execute(new HttpDelete(uri));
+        parseResponse(response);
     }
 
     @Override
@@ -154,11 +158,15 @@ public class RESTConnection implements Connection {
     @Override
     public void removeFromCart(Instrument instrument) throws UnexpectedResultException, IOException {
         // DELETE /cart/my & instrument=ID
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("id", instrument.getId().toString());
+        httpDelete(webserviceUrl, "/cart/my", token, parameters);
     }
 
     @Override
     public void removeFromCartAll() throws UnexpectedResultException, IOException {
         // DELETE /cart/my/all
+        httpPut(webserviceUrl, "/cart/my/all", token, new HashMap<>());
     }
 
     @Override
@@ -195,11 +203,15 @@ public class RESTConnection implements Connection {
 
     @Override
     public void returnInstrument(Instrument instrument) throws UnexpectedResultException, IOException {
-        // DELETE /instruments/in_use/me & instrument=ID
+        // DELETE /instruments/in_use/me & id=ID
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("id", instrument.getId().toString());
+        httpDelete(webserviceUrl, "/instruments/in_use/me", token, parameters);
     }
 
     @Override
     public void returnAllInstruments() throws UnexpectedResultException, IOException {
         // DELETE /instruments/in_use/me/all
+        httpPut(webserviceUrl, "/instruments/in_use/me/all", token, new HashMap<>());
     }
 }
