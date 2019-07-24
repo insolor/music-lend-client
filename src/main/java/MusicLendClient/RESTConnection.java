@@ -82,9 +82,7 @@ public class RESTConnection implements Connection {
         return httpGet(uri);
     }
 
-    private static String httpGet(URI uri) throws IOException, UnexpectedResultException {
-        HttpGet request = new HttpGet(uri);
-        HttpResponse response = httpClient.execute(request);
+    private static String parseResponse(HttpResponse response) throws UnexpectedResultException, IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         String content = reader.lines().collect(Collectors.joining("\n"));
 
