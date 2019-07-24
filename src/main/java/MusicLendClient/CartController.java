@@ -169,7 +169,7 @@ public class CartController {
             return;
         }
 
-        txtDiscountPercent.setText(result.getDiscountPercent().toString());
+        txtDiscountPercent.setText(result.getDiscountPercent().toString().concat("%"));
         txtDiscountSum.setText(result.getDiscountSum().toString());
         txtSumToPay.setText(result.getSumToBePaid().toString());
         txtSum.setText(result.getSumToBePaid().add(result.getDiscountSum()).toString());
