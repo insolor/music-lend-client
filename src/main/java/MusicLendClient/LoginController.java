@@ -36,7 +36,7 @@ public class LoginController {
             Main.showError("Неправильное имя пользователя или пароль", "");
             return;
         }
-        catch (Connection.ConnectionErrorException | IOException ex) {
+        catch (Connection.UnexpectedResultException | IOException ex) {
             Main.showError("Не удалось подключиться к серверу", "");
             return;
         }

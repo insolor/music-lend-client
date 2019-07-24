@@ -38,11 +38,12 @@ public class RESTConnection implements Connection {
     }
 
     RESTConnection(String webserviceUrl, String userName, String password) throws BadUserException,
-            ConnectionErrorException, IOException {
+            UnexpectedResultException, IOException {
         this.webserviceUrl = webserviceUrl;
         HttpPost request = new HttpPost(webserviceUrl.concat("/auth"));
         request.addHeader("Content-Type", "application/json");
 
+        // pass username and password as a payload
         Gson gson = new GsonBuilder().create();
         String json = gson.toJson(new UserInfo(userName, password));
 
@@ -54,14 +55,7 @@ public class RESTConnection implements Connection {
             throw new BadUserException();
         }
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-        if(response.getStatusLine().getStatusCode() != 200) {
-            String content = reader.lines().collect(Collectors.joining("\n"));
-            throw new ConnectionErrorException(content);
-        }
-
-        token = reader.readLine();
+        token = parseResponse(response);
     }
 
     private static String httpGet(String webserviceUrl, String path, String token)
@@ -80,16 +74,10 @@ public class RESTConnection implements Connection {
     private static String httpGet(String webserviceUrl, String path, String token, Map<String, String> parameters)
             throws IOException, UnexpectedResultException {
         URI uri;
-
         parameters.put("token", token);
 
-        try {
-            uri = buildUri(webserviceUrl, path, parameters);
-        }
-        catch (URISyntaxException ex) {
-            // TODO: Handle somehow?
-            return null;
-        }
+        try { uri = buildUri(webserviceUrl, path, parameters); }
+        catch (URISyntaxException ex) { return null; }
 
         return httpGet(uri);
     }
@@ -105,6 +93,28 @@ public class RESTConnection implements Connection {
         }
 
         return content;
+    }
+
+    private static String httpGet(URI uri) throws IOException, UnexpectedResultException {
+        HttpResponse response = httpClient.execute(new HttpGet(uri));
+        return parseResponse(response);
+    }
+
+    private static String httpPut(String webserviceUrl, String path, String token, Map<String, String> parameters)
+            throws IOException, UnexpectedResultException {
+        URI uri;
+        parameters.put("token", token);
+
+        try { uri = buildUri(webserviceUrl, path, parameters); }
+        catch (URISyntaxException ex) { return null; }
+
+        return httpPut(uri);
+    }
+
+    private static String httpPut(URI uri) throws IOException, UnexpectedResultException {
+        // Maybe add ability to put some payload?
+        HttpResponse response = httpClient.execute(new HttpPut(uri));
+        return parseResponse(response);
     }
 
     @Override
@@ -138,6 +148,9 @@ public class RESTConnection implements Connection {
     @Override
     public void addToCart(Instrument instrument) throws UnexpectedResultException, IOException {
         // PUT /cart/my & instrument=ID
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("instrument", instrument.getId().toString());
+        httpPut(webserviceUrl, "/cart/my", token, parameters);
     }
 
     @Override
