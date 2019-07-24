@@ -101,15 +101,16 @@ public class OrderInstrumentsController {
         initTableColumns();
         updateAvailableInstrumentsList();
 
-        ChangeListener<Instrument> listener = (obs, oldValue, newValue) -> {
+        // Show instrument description
+        tableAvailableInstruments.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if(newValue == null) {
                 textDescription.setText("");
             }
             else {
                 textDescription.setText(newValue.getDescription());
             }
-        };
-        tableAvailableInstruments.getSelectionModel().selectedItemProperty().addListener(listener);
+        });
+
         Main.shop.addListener(observable -> updateAvailableInstrumentsList());
     }
 }
