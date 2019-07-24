@@ -163,7 +163,11 @@ public class RESTConnection implements Connection {
 
     @Override
     public void updateCartData(String promocode, Integer days) throws UnexpectedResultException, IOException {
-        // PUT /cart/my promocode=PROMOCODE days=DAYS
+        // PUT /cart/my/data promocode=PROMOCODE days=DAYS
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("promocode", promocode);
+        parameters.put("days", days.toString());
+        httpPut(webserviceUrl, "/cart/my/data", token, parameters);
     }
 
     @Override
@@ -185,6 +189,8 @@ public class RESTConnection implements Connection {
     @Override
     public void pay() throws UnexpectedResultException, IOException {
         // PUT /cart/my/payment
+        Map<String, String> parameters = new HashMap<>();
+        httpPut(webserviceUrl, "/cart/my/payment", token, parameters);
     }
 
     @Override
