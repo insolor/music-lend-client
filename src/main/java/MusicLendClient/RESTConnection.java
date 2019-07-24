@@ -145,9 +145,9 @@ public class RESTConnection implements Connection {
 
     @Override
     public void addToCart(Instrument instrument) throws UnexpectedResultException, IOException {
-        // PUT /cart/my & instrument=ID
+        // PUT /cart/my & id=ID
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("instrument", instrument.getId().toString());
+        parameters.put("id", instrument.getId().toString());
         httpPut(webserviceUrl, "/cart/my", token, parameters);
     }
 
